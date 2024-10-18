@@ -250,37 +250,20 @@ class Event_Elementor_Addon_Typewriter extends Widget_Base{
 		$typed_id = uniqid();
 		$id = rand(999, 9999);
 
-		$output = '<div class="naeep-typewriter">
+		$output = '<div class="naeep-typewriter" data-type-id="'.esc_attr($typed_id).'" data-id="'.esc_attr($id).'" data-type-speed="'.esc_attr($typeSpeed).'" data-back-speed="'.esc_attr($backSpeed).'" data-back-delay="'.esc_attr($backDelay).'" data-start-delay="'.esc_attr($startDelay).'" data-cursor-char="'.esc_attr($cursorChar).'">
 			          <h1>'.esc_html($before_title).'
 			            <span class="typed_'.esc_attr($typed_id).'_'.esc_attr($id).'_strings">';
 			            // Group Param Output
-									if ( is_array( $animation_groups ) && !empty( $animation_groups ) ){
-									  foreach ( $animation_groups as $each_list ) {
-											$animation_text = $each_list['animation_text'] ? $each_list['animation_text'] : '';
-										  $output .= '<span>'. esc_html($animation_text) .'</span>';
-									  }
-									}
-      $output .= '</span>
+						if ( is_array( $animation_groups ) && !empty( $animation_groups ) ){
+						  foreach ( $animation_groups as $each_list ) {
+								$animation_text = $each_list['animation_text'] ? $each_list['animation_text'] : '';
+							  $output .= '<span>'. esc_html($animation_text) .'</span>';
+						  }
+						}
+						$output .= '</span>
 			            <span class="typed_'.esc_attr($typed_id).'_'.esc_attr($id).'"></span>
 			          '.esc_html($after_title).'</h1>
 			         </div>';
-							?>
-							<script type="text/javascript">
-								jQuery(document).ready(function($) {
-								  "use strict";
-								  //Write Erase Script
-								  var typed_<?php echo esc_attr($typed_id); ?>_<?php echo esc_attr($id); ?> = new Typed('.typed_<?php echo esc_attr($typed_id); ?>_<?php echo esc_attr($id); ?>', {
-								    typeSpeed: <?php echo esc_attr($typeSpeed); ?>,
-								    backSpeed: <?php echo esc_attr($backSpeed); ?>,
-								    backDelay: <?php echo esc_attr($backDelay); ?>,
-								    startDelay: <?php echo esc_attr($startDelay); ?>,
-								    cursorChar: '<?php echo esc_attr($cursorChar); ?>',
-								    loop: true,
-								    stringsElement: '.typed_<?php echo esc_attr($typed_id); ?>_<?php echo esc_attr($id); ?>_strings',
-								  });
-								});
-							</script>
-							<?php
 		echo $output;
 
 	}

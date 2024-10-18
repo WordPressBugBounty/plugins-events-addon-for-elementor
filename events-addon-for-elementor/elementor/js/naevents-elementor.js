@@ -1086,6 +1086,58 @@ $( window ).on( 'elementor/frontend/init', function() {
     owl_carousel();
   } );
 
+  //Chart
+  elementorFrontend.hooks.addAction( 'frontend/element_ready/naevents_basic_chart.default', function($scope, $){
+    //Chart Script
+    let $canvas = $scope.find(".naeep-chart canvas");
+        let chartData = $canvas.data('chart');
+
+        if (chartData) {
+            // Global configs
+            Chart.defaults.global.responsive = true;
+            Chart.defaults.global.maintainAspectRatio = false;
+            Chart.defaults.global.tooltips.backgroundColor = 'rgba(35,35,35,0.9)';
+            Chart.defaults.global.tooltips.bodyFontSize = 13;
+            Chart.defaults.global.tooltips.bodyFontStyle = 'bold';
+            Chart.defaults.global.tooltips.yPadding = 13;
+            Chart.defaults.global.tooltips.xPadding = 10;
+            Chart.defaults.doughnut.cutoutPercentage = 60;
+
+            // Create the chart
+            new Chart($canvas, {
+                type: chartData.type,
+                data: {
+                    labels: chartData.labels,
+                    datasets: chartData.datasets
+                },
+                options: chartData.options
+            });
+        } 
+  } );
+
+  elementorFrontend.hooks.addAction( 'frontend/element_ready/naevents_basic_typewriter.default', function($scope, $) {
+    let target_el   = $scope.find(".naeep-typewriter");
+    let $id         = target_el.attr('data-id');
+    let $typed_id   = target_el.attr('data-type-id');
+    let $typeSpeed  = target_el.attr('data-type-speed');
+    let $backSpeed  = target_el.attr('data-back-speed');
+    let $backDelay  = target_el.attr('data-back-delay');
+    let $startDelay = target_el.attr('data-start-delay');
+    let $cursorChar = target_el.attr('data-cursor-char');
+
+    let target_var  = 'typed_' + $typed_id + '_' + $id;
+
+    target_var = new Typed('.' + target_var, {
+      typeSpeed: parseInt($typeSpeed),
+      backSpeed: parseInt($backSpeed),
+      backDelay: parseInt($backDelay),
+      startDelay: parseInt($startDelay),
+      cursorChar: $cursorChar,
+      loop: true,
+      stringsElement: '.'+ target_var +'_strings',
+    });   
+  } );  
+
 } );
 
 })(jQuery);
