@@ -151,10 +151,10 @@ if ( function_exists('espresso_version') ) {
 			$show_gravatar 		= !empty( $settings['show_gravatar'] ) ? $settings['show_gravatar'] : '';
 			$show_gravatar = $show_gravatar ? 'true' : 'false';
 
-			$event_id = $event_id ? ' event_id="'.$event_id.'"' : '';
-			$show_gravatar = $show_gravatar ? ' show_gravatar="'.$show_gravatar.'"' : '';
+			$event_id = $event_id ? ' event_id="'.esc_attr( $event_id ).'"' : '';
+			$show_gravatar = $show_gravatar ? ' show_gravatar="'.esc_attr( $show_gravatar ).'"' : '';
 
-	  	$output = '<div class="naeep-ee-attendees">'.do_shortcode( '[ESPRESSO_EVENT_ATTENDEES'.$event_id.$show_gravatar.']' ).'</div>';
+	  		$output = '<div class="naeep-ee-attendees">'.do_shortcode( '[ESPRESSO_EVENT_ATTENDEES'.$event_id.$show_gravatar.']' ).'</div>';
 
 		  echo $output;
 

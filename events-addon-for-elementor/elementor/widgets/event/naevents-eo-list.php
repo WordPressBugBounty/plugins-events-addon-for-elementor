@@ -243,36 +243,36 @@ if ( is_plugin_active( 'event-organiser/event-organiser.php' ) ) {
 		 * Written in PHP and used to generate the final HTML.
 		*/
 		protected function render() {
-			$settings = $this->get_settings_for_display();
+			$settings 				= $this->get_settings_for_display();
 			$event_limit 			= !empty( $settings['event_limit'] ) ? $settings['event_limit'] : '';
-			$event_start_before 		= !empty( $settings['event_start_before'] ) ? $settings['event_start_before'] : '';
-			$event_start_after 			= !empty( $settings['event_start_after'] ) ? $settings['event_start_after'] : '';
-			$event_end_before 	= !empty( $settings['event_end_before'] ) ? $settings['event_end_before'] : '';
-			$event_end_after 	= !empty( $settings['event_end_after'] ) ? $settings['event_end_after'] : '';
-			$ondate 	= !empty( $settings['ondate'] ) ? $settings['ondate'] : '';
-			$showpastevents 	= !empty( $settings['showpastevents'] ) ? $settings['showpastevents'] : '';
-			$event_venue 	= !empty( $settings['event_venue'] ) ? $settings['event_venue'] : '';
-			$event_category 	= !empty( $settings['event_category'] ) ? $settings['event_category'] : '';
+			$event_start_before 	= !empty( $settings['event_start_before'] ) ? $settings['event_start_before'] : '';
+			$event_start_after 		= !empty( $settings['event_start_after'] ) ? $settings['event_start_after'] : '';
+			$event_end_before 		= !empty( $settings['event_end_before'] ) ? $settings['event_end_before'] : '';
+			$event_end_after 		= !empty( $settings['event_end_after'] ) ? $settings['event_end_after'] : '';
+			$ondate 				= !empty( $settings['ondate'] ) ? $settings['ondate'] : '';
+			$showpastevents 		= !empty( $settings['showpastevents'] ) ? $settings['showpastevents'] : '';
+			$event_venue 			= !empty( $settings['event_venue'] ) ? $settings['event_venue'] : '';
+			$event_category 		= !empty( $settings['event_category'] ) ? $settings['event_category'] : '';
 			$event_tag 				= !empty( $settings['event_tag'] ) ? $settings['event_tag'] : '';
 			$event_order 			= !empty( $settings['event_order'] ) ? $settings['event_order'] : '';
-			$event_orderby 		= !empty( $settings['event_orderby'] ) ? $settings['event_orderby'] : '';
+			$event_orderby 			= !empty( $settings['event_orderby'] ) ? $settings['event_orderby'] : '';
 
-			$limit = $event_limit ? ' numberposts="'.$event_limit.'"' : '';
-			$start_before = $event_start_before ? ' event_start_before="'.$event_start_before.'"' : '';
-			$start_after = $event_start_after ? ' event_start_after="'.$event_start_after.'"' : '';
-			$end_before = $event_end_before ? ' event_end_before="'.$event_end_before.'"' : '';
-			$end_after = $event_end_after ? ' event_end_after="'.$event_end_after.'"' : '';
-			$ondate = $ondate ? ' ondate="'.$ondate.'"' : '';
-			$showpastevents = $showpastevents ? ' showpastevents="'.$showpastevents.'"' : '';
-			$event_venue = $event_venue ? ' venue="'.implode(',', $event_venue).'"' : '';
-			$category = $event_category ? ' event_category="'.implode(',', $event_category).'"' : '';
-			$tag = $event_tag ? ' event_tag="'.implode(',', $event_tag).'"' : '';
-			$order = $event_order ? ' order="'.$event_order.'"' : '';
-			$orderby = $event_orderby ? ' orderby="'.$event_orderby.'"' : '';
+			$limit = $event_limit ? ' numberposts="'.esc_attr( $event_limit ).'"' : '';
+			$start_before = $event_start_before ? ' event_start_before="'.esc_attr( $event_start_before ).'"' : '';
+			$start_after = $event_start_after ? ' event_start_after="'.esc_attr( $event_start_after ).'"' : '';
+			$end_before = $event_end_before ? ' event_end_before="'.esc_attr( $event_end_before ).'"' : '';
+			$end_after = $event_end_after ? ' event_end_after="'.esc_attr( $event_end_after ).'"' : '';
+			$ondate = $ondate ? ' ondate="'.esc_attr( $ondate ).'"' : '';
+			$showpastevents = $showpastevents ? ' showpastevents="'.esc_attr( $showpastevents ).'"' : '';
+			$event_venue = $event_venue ? ' venue="'.implode(',', esc_attr( $event_venue )).'"' : '';
+			$category = $event_category ? ' event_category="'.implode(',', esc_attr( $event_category )).'"' : '';
+			$tag = $event_tag ? ' event_tag="'.implode(',', esc_attr( $event_tag )).'"' : '';
+			$order = $event_order ? ' order="'.esc_attr( $event_order ).'"' : '';
+			$orderby = $event_orderby ? ' orderby="'.esc_attr( $event_orderby ).'"' : '';
 
-	  	$output = '<div class="naeep-eo-list">'.do_shortcode( '[event_search event_start_after="now" filters="date"][eo_events'. $limit . $start_before . $start_after . $end_before . $end_after . $ondate . $showpastevents . $event_venue . $category . $tag . $order . $orderby .']' ).'</div>';
+	  		$output = '<div class="naeep-eo-list">'.do_shortcode( '[event_search event_start_after="now" filters="date"][eo_events'. $limit . $start_before . $start_after . $end_before . $end_after . $ondate . $showpastevents . $event_venue . $category . $tag . $order . $orderby .']' ).'</div>';
 
-		  echo $output;
+		  	echo $output;
 
 		}
 

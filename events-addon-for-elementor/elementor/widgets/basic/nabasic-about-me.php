@@ -808,7 +808,7 @@ class Event_Elementor_Addon_AboutMe extends Widget_Base{
 		$title_link = $aboutme_title_link ? '<a href="'.esc_url($aboutme_title_link).'" '.$aboutme_title_link_attr.'>'.esc_html($aboutme_title).'</a>' : esc_html($aboutme_title);
 		$title = $aboutme_title ? '<h3 class="aboutme-title">'.$title_link.'</h3>' : '';
 		$subtitle = $aboutme_subtitle ? '<h5>'.esc_html($aboutme_subtitle).'</h5>' : '';
-		$content = $aboutme_content ? $aboutme_content : '';
+		$content = $aboutme_content ? wp_kses_post( $aboutme_content ) : '';
 		$aboutme_btn = $aboutme_btn_link ? '<div class="naeep-btn-wrap"><a href="'.esc_url($aboutme_btn_link).'" class="naeep-btn" '.$aboutme_btn_link_attr.'>'.esc_html($aboutme_btn_text).'</a></div>' : '';
 
 		$output = '<div class="naeep-aboutme-item">

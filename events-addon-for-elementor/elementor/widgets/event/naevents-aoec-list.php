@@ -694,15 +694,15 @@ if ( is_plugin_active( 'all-in-one-event-calendar/all-in-one-event-calendar.php'
 
 			$display_filters = $display_filters ? 'true' : 'false';
 
-			$view = $event_view ? ' view="'.$event_view.'"' : '';
-			$category = $cat_name ? ' cat_name="'.implode(',', $cat_name).'"' : '';
-			$tag = $tag_name ? ' tag_name="'.implode(',', $tag_name).'"' : '';
-			$post_id = $post_id ? ' post_id="'.implode(',', $post_id).'"' : '';
-			$filters = $display_filters ? ' display_filters="'.$display_filters.'"' : '';
-			$limit = $event_limit ? ' events_limit="'.$event_limit.'"' : '';
-			$exact_date = $exact_date ? ' exact_date="'.$exact_date.'"' : '';
+			$view = $event_view ? ' view="'.esc_attr( $event_view ).'"' : '';
+			$category = $cat_name ? ' cat_name="'.implode(',', esc_attr( $cat_name )).'"' : '';
+			$tag = $tag_name ? ' tag_name="'.implode(',', esc_attr( $tag_name )).'"' : '';
+			$post_id = $post_id ? ' post_id="'.implode(',', esc_attr( $post_id )).'"' : '';
+			$filters = $display_filters ? ' display_filters="'.esc_attr( $display_filters ).'"' : '';
+			$limit = $event_limit ? ' events_limit="'.esc_attr( $event_limit ).'"' : '';
+			$exact_date = $exact_date ? ' exact_date="'.esc_attr( $exact_date ).'"' : '';
 
-	  	$output = '<div class="naeep-aoec-list">'.do_shortcode( '[ai1ec'. $view . $category . $tag . $post_id . $filters . $limit . $exact_date .']' ).'</div>';
+	  		$output = '<div class="naeep-aoec-list">'.do_shortcode( '[ai1ec'. $view . $category . $tag . $post_id . $filters . $limit . $exact_date .']' ).'</div>';
 
 		  echo $output;
 

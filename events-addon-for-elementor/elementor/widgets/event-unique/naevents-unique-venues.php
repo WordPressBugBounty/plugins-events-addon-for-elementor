@@ -718,7 +718,7 @@ class Event_Elementor_Addon_Unique_Venues extends Widget_Base{
 						    <div class="naeep-grid-info">
 						      <ul class="schedule-meta">
 						      	<?php if ($schedule_date) { ?>
-					      		<li><i class="fa fa-calendar" aria-hidden="true"></i> <?php echo $schedule_date; ?></li>
+					      		<li><i class="fa fa-calendar" aria-hidden="true"></i> <?php echo esc_html($schedule_date); ?></li>
 						      	<?php } ?>
 						      </ul>
 						      <?php echo $title.$content.$button; ?>

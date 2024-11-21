@@ -545,14 +545,14 @@ if ( function_exists('espresso_version') ) {
 			$show_expired = $show_expired ? 'true' : 'false';
 			$show_title = $show_title ? 'true' : 'false';
 
-			$show_expired = $show_expired ? ' show_expired="'.$show_expired.'"' : '';
-			$title = $title ? ' title="'.$title.'"' : '';
-			$limit = $event_limit ? ' limit="'.$event_limit.'"' : '';
-			$month = $month ? ' month="'.$month.'"' : '';
-			$show_title = $show_title ? ' show_title="'.$show_title.'"' : '';
-			$order = $event_order ? ' sort="'.$event_order.'"' : '';
-			$orderby = $event_orderby ? ' order_by="'.implode(',', $event_orderby).'"' : '';
-			$category = $event_category ? ' category_slug="'.$event_category.'"' : '';
+			$show_expired = $show_expired ? ' show_expired="'.esc_attr($show_expired).'"' : '';
+			$title = $title ? ' title="'.esc_attr($title).'"' : '';
+			$limit = $event_limit ? ' limit="'.esc_attr($event_limit).'"' : '';
+			$month = $month ? ' month="'.esc_attr($month).'"' : '';
+			$show_title = $show_title ? ' show_title="'.esc_attr($show_title).'"' : '';
+			$order = $event_order ? ' sort="'.esc_attr($event_order).'"' : '';
+			$orderby = $event_orderby ? ' order_by="'.implode(',', esc_attr($event_orderby)).'"' : '';
+			$category = $event_category ? ' category_slug="'.esc_attr($event_category).'"' : '';
 
 	  	$output = '<div class="naeep-ee-list">'.do_shortcode( '[ESPRESSO_EVENTS'. $show_expired . $title . $limit . $month . $show_title . $order . $orderby . $category .']' ).'</div>';
 

@@ -361,18 +361,18 @@ if ( is_plugin_active( 'event-organiser/event-organiser.php' ) ) {
 		 * Written in PHP and used to generate the final HTML.
 		*/
 		protected function render() {
-			$settings = $this->get_settings_for_display();
+			$settings 			= $this->get_settings_for_display();
 			$btn_title 			= !empty( $settings['btn_title'] ) ? $settings['btn_title'] : '';
-			$btn_class 		= !empty( $settings['btn_class'] ) ? $settings['btn_class'] : '';
+			$btn_class 			= !empty( $settings['btn_class'] ) ? $settings['btn_class'] : '';
 			$btn_id 			= !empty( $settings['btn_id'] ) ? $settings['btn_id'] : '';
-			$btn_style 	= !empty( $settings['btn_style'] ) ? $settings['btn_style'] : '';
-			$btn_image 	= !empty( $settings['btn_image']['id'] ) ? $settings['btn_image']['id'] : '';
-			$btn_text 	= !empty( $settings['btn_text'] ) ? $settings['btn_text'] : '';
+			$btn_style 			= !empty( $settings['btn_style'] ) ? $settings['btn_style'] : '';
+			$btn_image 			= !empty( $settings['btn_image']['id'] ) ? $settings['btn_image']['id'] : '';
+			$btn_text 			= !empty( $settings['btn_text'] ) ? $settings['btn_text'] : '';
 			$event_category 	= !empty( $settings['event_category'] ) ? $settings['event_category'] : '';
-			$event_venue 	= !empty( $settings['event_venue'] ) ? $settings['event_venue'] : '';
+			$event_venue 		= !empty( $settings['event_venue'] ) ? $settings['event_venue'] : '';
 
-			$image_url = wp_get_attachment_url( $btn_image );
-			$image = $image_url ? '<img src="'.$image_url.'" alt="Subscribe">' : '';
+			$image_url 			= wp_get_attachment_url( $btn_image );
+			$image 				= $image_url ? '<img src="'.esc_url( $image_url ).'" alt="Subscribe">' : '';
 
 			if ($btn_style === 'two') {
 				$btn = $image;
@@ -380,15 +380,15 @@ if ( is_plugin_active( 'event-organiser/event-organiser.php' ) ) {
 				$btn = $btn_text;
 			}
 
-			$title = $btn_title ? ' title="'.$btn_title.'"' : '';
-			$class = $btn_class ? ' class="'.$btn_class.'"' : '';
-			$id = $btn_id ? ' id="'.$btn_id.'"' : '';
-			$event_venue = $event_venue ? ' venue="'.implode(',', $event_venue).'"' : '';
-			$category = $event_category ? ' category="'.implode(',', $event_category).'"' : '';
+			$title = $btn_title ? ' title="'.esc_attr( $btn_title ).'"' : '';
+			$class = $btn_class ? ' class="'.esc_attr( $btn_class ).'"' : '';
+			$id = $btn_id ? ' id="'.esc_attr( $btn_id ).'"' : '';
+			$event_venue = $event_venue ? ' venue="'.implode(',', esc_attr( $event_venue )).'"' : '';
+			$category = $event_category ? ' category="'.implode(',', esc_attr( $event_category )).'"' : '';
 
-	  	$output = '<div class="naeep-eo-subscribe">'.do_shortcode( '[eo_subscribe'. $title . $class . $id . $event_venue . $category .' type="google"] '.$btn.' [/eo_subscribe]' ).'</div>';
+	  		$output = '<div class="naeep-eo-subscribe">'.do_shortcode( '[eo_subscribe'. $title . $class . $id . $event_venue . $category .' type="google"] '.$btn.' [/eo_subscribe]' ).'</div>';
 
-		  echo $output;
+			echo $output;
 
 		}
 

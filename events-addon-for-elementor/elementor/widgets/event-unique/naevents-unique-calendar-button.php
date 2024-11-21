@@ -285,7 +285,7 @@ class Event_Elementor_Addon_Unique_CalendarButton extends Widget_Base{
 
 		$btn_icon = $btn_icon ? '<i class="'.esc_attr($btn_icon).'" aria-hidden="true"></i>' : '';
 
-	  $button = $link_url ? '<a href="'.esc_url($link_url).'" '.$link_attr.' class="naeep-btn">'.$btn_icon.esc_html($btn_text).'</a>' : '';
+	  	$button = $link_url ? '<a href="'.esc_url($link_url).'" '.$link_attr.' class="naeep-btn">'.$btn_icon.esc_html($btn_text).'</a>' : '';
 
 		$output = '<div class="naeep-btn-wrap">'.$button.'</div>';
 

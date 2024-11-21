@@ -344,40 +344,40 @@ if ( is_plugin_active( 'event-organiser/event-organiser.php' ) ) {
 		 * Written in PHP and used to generate the final HTML.
 		*/
 		protected function render() {
-			$settings = $this->get_settings_for_display();
-			$defaultView 	= !empty( $settings['defaultView'] ) ? $settings['defaultView'] : '';
+			$settings 				= $this->get_settings_for_display();
+			$defaultView 			= !empty( $settings['defaultView'] ) ? $settings['defaultView'] : '';
 			$event_year 			= !empty( $settings['event_year'] ) ? $settings['event_year'] : '';
 			$event_month 			= !empty( $settings['event_month'] ) ? $settings['event_month'] : '';
-			$event_date 			  = !empty( $settings['event_date'] ) ? $settings['event_date'] : '';
-			$event_category 	= !empty( $settings['event_category'] ) ? $settings['event_category'] : '';
+			$event_date 			= !empty( $settings['event_date'] ) ? $settings['event_date'] : '';
+			$event_category 		= !empty( $settings['event_category'] ) ? $settings['event_category'] : '';
 			$event_tag 				= !empty( $settings['event_tag'] ) ? $settings['event_tag'] : '';
-			$headerLeft 	= !empty( $settings['headerLeft'] ) ? $settings['headerLeft'] : '';
-			$headerCenter 	= !empty( $settings['headerCenter'] ) ? $settings['headerCenter'] : '';
-			$headerRight 	= !empty( $settings['headerRight'] ) ? $settings['headerRight'] : '';
-			$theme 	= !empty( $settings['theme'] ) ? $settings['theme'] : '';
-			$tooltip 	= !empty( $settings['tooltip'] ) ? $settings['tooltip'] : '';
-			$weekends 	= !empty( $settings['weekends'] ) ? $settings['weekends'] : '';
+			$headerLeft 			= !empty( $settings['headerLeft'] ) ? $settings['headerLeft'] : '';
+			$headerCenter 			= !empty( $settings['headerCenter'] ) ? $settings['headerCenter'] : '';
+			$headerRight 			= !empty( $settings['headerRight'] ) ? $settings['headerRight'] : '';
+			$theme 					= !empty( $settings['theme'] ) ? $settings['theme'] : '';
+			$tooltip 				= !empty( $settings['tooltip'] ) ? $settings['tooltip'] : '';
+			$weekends 				= !empty( $settings['weekends'] ) ? $settings['weekends'] : '';
 
-			$theme = $theme ? 'true' : 'false';
-			$tooltip = $tooltip ? 'true' : 'false';
-			$weekends = $weekends ? 'true' : 'false';
+			$theme 					= $theme ? 'true' : 'false';
+			$tooltip 				= $tooltip ? 'true' : 'false';
+			$weekends 				= $weekends ? 'true' : 'false';
 
-			$defaultView = $defaultView ? ' defaultView="'.$defaultView.'"' : '';
-			$year = $event_year ? ' year="'.$event_year.'"' : '';
-			$month = $event_month ? ' month="'.$event_month.'"' : '';
-			$date = $event_date ? ' date="'.$event_date.'"' : '';
-			$category = $event_category ? ' category="'.implode(',', $event_category).'"' : '';
-			$tag = $event_tag ? ' tag="'.implode(',', $event_tag).'"' : '';
-			$headerLeft = $headerLeft ? ' headerLeft="'.implode(',', $headerLeft).'"' : '';
-			$headerRight = $headerRight ? ' headerRight="'.implode(',', $headerRight).'"' : '';
-			$headerCenter = $headerCenter ? ' headerCenter="'.implode(',', $headerCenter).'"' : '';
-			$theme = $theme ? ' theme="'.$theme.'"' : '';
-			$tooltip = $tooltip ? ' tooltip="'.$tooltip.'"' : '';
-			$weekends = $weekends ? ' weekends="'.$weekends.'"' : '';
+			$defaultView = $defaultView ? ' defaultView="'.esc_attr( $defaultView ).'"' : '';
+			$year = $event_year ? ' year="'.esc_attr( $event_year ).'"' : '';
+			$month = $event_month ? ' month="'.esc_attr( $event_month ).'"' : '';
+			$date = $event_date ? ' date="'.esc_attr( $event_date ).'"' : '';
+			$category = $event_category ? ' category="'.implode(',', esc_attr( $event_category )).'"' : '';
+			$tag = $event_tag ? ' tag="'.implode(',', esc_attr( $event_tag )).'"' : '';
+			$headerLeft = $headerLeft ? ' headerLeft="'.implode(',', esc_attr( $headerLeft )).'"' : '';
+			$headerRight = $headerRight ? ' headerRight="'.implode(',', esc_attr( $headerRight )).'"' : '';
+			$headerCenter = $headerCenter ? ' headerCenter="'.implode(',', esc_attr( $headerCenter )).'"' : '';
+			$theme = $theme ? ' theme="'.esc_attr( $theme ).'"' : '';
+			$tooltip = $tooltip ? ' tooltip="'.esc_attr( $tooltip ).'"' : '';
+			$weekends = $weekends ? ' weekends="'.esc_attr( $weekends ).'"' : '';
 
-	  	$output = '<div class="naeep-eo-fullcalendar">'.do_shortcode( '[eo_fullcalendar'. $defaultView . $year . $month . $date . $category . $tag . $headerLeft . $headerRight . $headerCenter . $theme . $tooltip . $weekends .']' ).'</div>';
+	  		$output = '<div class="naeep-eo-fullcalendar">'.do_shortcode( '[eo_fullcalendar'. $defaultView . $year . $month . $date . $category . $tag . $headerLeft . $headerRight . $headerCenter . $theme . $tooltip . $weekends .']' ).'</div>';
 
-		  echo $output;
+		  	echo $output;
 
 		}
 

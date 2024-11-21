@@ -731,25 +731,25 @@ class Event_Elementor_Addon_Unique_Accommodation extends Widget_Base{
 	 * Written in PHP and used to generate the final HTML.
 	*/
 	protected function render() {
-		$settings = $this->get_settings_for_display();
-		$venue_style = !empty( $settings['venue_style'] ) ? $settings['venue_style'] : '';
-		$venue_image = !empty( $settings['venue_image']['id'] ) ? $settings['venue_image']['id'] : '';
-		$venue_title = !empty( $settings['venue_title'] ) ? $settings['venue_title'] : '';
-		$venue_title_link = !empty( $settings['venue_title_link']['url'] ) ? $settings['venue_title_link']['url'] : '';
+		$settings 			= $this->get_settings_for_display();
+		$venue_style 		= !empty( $settings['venue_style'] ) ? $settings['venue_style'] : '';
+		$venue_image 		= !empty( $settings['venue_image']['id'] ) ? $settings['venue_image']['id'] : '';
+		$venue_title 		= !empty( $settings['venue_title'] ) ? $settings['venue_title'] : '';
+		$venue_title_link 	= !empty( $settings['venue_title_link']['url'] ) ? $settings['venue_title_link']['url'] : '';
 		$venue_title_link_external = !empty( $settings['venue_title_link']['is_external'] ) ? 'target="_blank"' : '';
 		$venue_title_link_nofollow = !empty( $settings['venue_title_link']['nofollow'] ) ? 'rel="nofollow"' : '';
 		$venue_title_link_attr = !empty( $venue_title_link ) ?  $venue_title_link_external.' '.$venue_title_link_nofollow : '';
-		$venue_price = !empty( $settings['venue_price'] ) ? $settings['venue_price'] : '';
-		$venue_price_duration = !empty( $settings['venue_price_duration'] ) ? $settings['venue_price_duration'] : '';
-		$venue_content = !empty( $settings['venue_content'] ) ? $settings['venue_content'] : '';
-		$rating = !empty( $settings['rating'] ) ? $settings['rating'] : '';
-		$venue_location = !empty( $settings['venue_location'] ) ? $settings['venue_location'] : '';
-		$venue_btn_text = !empty( $settings['venue_btn_text'] ) ? $settings['venue_btn_text'] : '';
-		$venue_btn_link = !empty( $settings['venue_btn_link']['url'] ) ? $settings['venue_btn_link']['url'] : '';
+		$venue_price 			= !empty( $settings['venue_price'] ) ? $settings['venue_price'] : '';
+		$venue_price_duration 	= !empty( $settings['venue_price_duration'] ) ? $settings['venue_price_duration'] : '';
+		$venue_content 			= !empty( $settings['venue_content'] ) ? $settings['venue_content'] : '';
+		$rating 				= !empty( $settings['rating'] ) ? $settings['rating'] : '';
+		$venue_location 		= !empty( $settings['venue_location'] ) ? $settings['venue_location'] : '';
+		$venue_btn_text 		= !empty( $settings['venue_btn_text'] ) ? $settings['venue_btn_text'] : '';
+		$venue_btn_link 		= !empty( $settings['venue_btn_link']['url'] ) ? $settings['venue_btn_link']['url'] : '';
 		$venue_btn_link_external = !empty( $settings['venue_btn_link']['is_external'] ) ? 'target="_blank"' : '';
 		$venue_btn_link_nofollow = !empty( $settings['venue_btn_link']['nofollow'] ) ? 'rel="nofollow"' : '';
-		$venue_btn_link_attr = !empty( $venue_btn_link ) ?  $venue_btn_link_external.' '.$venue_btn_link_nofollow : '';
-		$toggle_align = !empty( $settings['toggle_align'] ) ? $settings['toggle_align'] : '';
+		$venue_btn_link_attr 	= !empty( $venue_btn_link ) ?  $venue_btn_link_external.' '.$venue_btn_link_nofollow : '';
+		$toggle_align 			= !empty( $settings['toggle_align'] ) ? $settings['toggle_align'] : '';
 
 		if ($toggle_align) {
 			$f_class = ' order-1';

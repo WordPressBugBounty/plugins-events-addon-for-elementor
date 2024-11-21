@@ -1015,7 +1015,7 @@ class Event_Elementor_Addon_Process extends Widget_Base{
 					  $icon_main = $process_image;
 					}
 
-			  	$title = !empty( $process_title ) ? '<h3 class="process-title">'.$process_title.'</h3>' : '';
+			  	$title = !empty( $process_title ) ? '<h3 class="process-title">'.esc_html($process_title).'</h3>' : '';
 
 				  $output .= '<div class="naeep-process-item'.esc_attr($border_class).'">
 									      <div class="process-info">

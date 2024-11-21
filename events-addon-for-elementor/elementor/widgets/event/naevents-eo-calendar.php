@@ -317,16 +317,16 @@ if ( is_plugin_active( 'event-organiser/event-organiser.php' ) ) {
 		protected function render() {
 			$settings = $this->get_settings_for_display();
 			$event_category 	= !empty( $settings['event_category'] ) ? $settings['event_category'] : '';
-			$event_venue 				= !empty( $settings['event_venue'] ) ? $settings['event_venue'] : '';
-			$showpastevents = !empty( $settings['showpastevents'] ) ? $settings['showpastevents'] : '';
+			$event_venue 		= !empty( $settings['event_venue'] ) ? $settings['event_venue'] : '';
+			$showpastevents 	= !empty( $settings['showpastevents'] ) ? $settings['showpastevents'] : '';
 
-			$category = $event_category ? ' event_category="'.implode(', ', $event_category).'"' : '';
-			$venue = $event_venue ? ' event_venue="'.implode(', ', $event_venue).'"' : '';
-			$pastevents = $showpastevents ? ' showpastevents="'.$showpastevents.'"' : '';
+			$category 			= $event_category ? ' event_category="'.implode(', ', esc_attr( $event_category )).'"' : '';
+			$venue 				= $event_venue ? ' event_venue="'.implode(', ', esc_attr( $event_venue )).'"' : '';
+			$pastevents 		= $showpastevents ? ' showpastevents="'.esc_attr( $showpastevents ).'"' : '';
 
-	  	$output = '<div class="naeep-eo-calendar">'.do_shortcode( '[eo_calendar'. $category . $venue . $pastevents . ']' ).'</div>';
+	  		$output 			= '<div class="naeep-eo-calendar">'.do_shortcode( '[eo_calendar'. $category . $venue . $pastevents . ']' ).'</div>';
 
-		  echo $output;
+		  	echo $output;
 
 		}
 

@@ -641,17 +641,17 @@ if ( is_plugin_active( 'events-manager/events-manager.php' ) ) {
 		*/
 		protected function render() {
 			$settings = $this->get_settings_for_display();
-			$event_category 	= !empty( $settings['event_category'] ) ? $settings['event_category'] : '';
-			$event_category_hide 	= !empty( $settings['event_category_hide'] ) ? $settings['event_category_hide'] : '';
-			$event_tag 				= !empty( $settings['event_tag'] ) ? $settings['event_tag'] : '';
-			$event_tag_hide 	= !empty( $settings['event_tag_hide'] ) ? $settings['event_tag_hide'] : '';
-			$event_id 			  = !empty( $settings['event_id'] ) ? $settings['event_id'] : '';
-			$event_year 			= !empty( $settings['event_year'] ) ? $settings['event_year'] : '';
-			$event_month 			= !empty( $settings['event_month'] ) ? $settings['event_month'] : '';
-			$event_countries 	= !empty( $settings['event_countries'] ) ? $settings['event_countries'] : '';
-			$event_bookings 	= !empty( $settings['event_bookings'] ) ? $settings['event_bookings'] : '';
-			$event_full 			= !empty( $settings['event_full'] ) ? $settings['event_full'] : '';
-			$event_long_events = !empty( $settings['event_long_events'] ) ? $settings['event_long_events'] : '';
+			$event_category 		= !empty( $settings['event_category'] ) ? esc_attr($settings['event_category']) : '';
+			$event_category_hide 	= !empty( $settings['event_category_hide'] ) ? esc_attr($settings['event_category_hide']) : '';
+			$event_tag 				= !empty( $settings['event_tag'] ) ? esc_attr($settings['event_tag']) : '';
+			$event_tag_hide 		= !empty( $settings['event_tag_hide'] ) ? esc_attr($settings['event_tag_hide']) : '';
+			$event_id 			  	= !empty( $settings['event_id'] ) ? esc_attr($settings['event_id']) : '';
+			$event_year 			= !empty( $settings['event_year'] ) ? esc_attr($settings['event_year']) : '';
+			$event_month 			= !empty( $settings['event_month'] ) ? esc_attr($settings['event_month']) : '';
+			$event_countries 		= !empty( $settings['event_countries'] ) ? esc_attr($settings['event_countries']) : '';
+			$event_bookings 		= !empty( $settings['event_bookings'] ) ? esc_attr($settings['event_bookings']) : '';
+			$event_full 			= !empty( $settings['event_full'] ) ? esc_attr($settings['event_full']) : '';
+			$event_long_events 		= !empty( $settings['event_long_events'] ) ? esc_attr($settings['event_long_events']) : '';
 
 			$category_hide = $event_category_hide ? '-' : '';
 			$tag_hide = $event_tag_hide ? '-' : '';
@@ -670,9 +670,9 @@ if ( is_plugin_active( 'events-manager/events-manager.php' ) ) {
 			$full = $event_full ? ' full="'.$event_full.'"' : '';
 			$long_events = $event_long_events ? ' long_events="'.$event_long_events.'"' : '';
 
-	  	$output = '<div class="naeep-em-calendar">'.do_shortcode( '[events_calendar'. $full . $category . $tag . $show_id . $year . $month . $countries . $bookings . $long_events . ']' ).'</div>';
+	  		$output = '<div class="naeep-em-calendar">'.do_shortcode( '[events_calendar'. $full . $category . $tag . $show_id . $year . $month . $countries . $bookings . $long_events . ']' ).'</div>';
 
-		  echo $output;
+		  	echo $output;
 
 		}
 

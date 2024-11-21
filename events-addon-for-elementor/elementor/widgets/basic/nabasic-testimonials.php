@@ -1189,23 +1189,24 @@ class Event_Elementor_Addon_Testimonials extends Widget_Base{
 			$carousel_autoheight  = ( isset( $settings['carousel_autoheight'] ) && ( 'true' == $settings['carousel_autoheight'] ) ) ? true : false;
 		
 		// Carousel Data's
-			$carousel_loop = $carousel_loop !== 'true' ? ' data-loop="true"' : ' data-loop="false"';
-			$carousel_items = $carousel_items ? ' data-items="'. $carousel_items .'"' : ' data-items="4"';
-			$carousel_margin = $carousel_margin ? ' data-margin="'. $carousel_margin .'"' : ' data-margin="0"';
-			$carousel_dots = $carousel_dots ? ' data-dots="true"' : ' data-dots="false"';
-			$carousel_nav = $carousel_nav ? ' data-nav="true"' : ' data-nav="false"';
-			$carousel_autoplay_timeout = $carousel_autoplay_timeout ? ' data-autoplay-timeout="'. $carousel_autoplay_timeout .'"' : '';
-			$carousel_autoplay = $carousel_autoplay ? ' data-autoplay="true"' : '';
-			$carousel_animate_out = $carousel_animate_out ? ' data-animateout="true"' : '';
-			$carousel_mousedrag = $carousel_mousedrag !== 'true' ? ' data-mouse-drag="true"' : ' data-mouse-drag="false"';
-			$carousel_autowidth = $carousel_autowidth ? ' data-auto-width="true"' : '';
-			$carousel_autoheight = $carousel_autoheight ? ' data-auto-height="true"' : '';
-			$carousel_tablet = $carousel_items_tablet ? ' data-items-tablet="'. $carousel_items_tablet .'"' : ' data-items-tablet="2"';
-			$carousel_mobile = $carousel_items_mobile ? ' data-items-mobile-landscape="'. $carousel_items_mobile .'"' : ' data-items-mobile-landscape="1"';
-			$carousel_small_mobile = $carousel_items_mobile ? ' data-items-mobile-portrait="'. $carousel_items_mobile .'"' : ' data-items-mobile-portrait="1"';
+		$carousel_items = $carousel_items ? $carousel_items : "1";
+		$carousel_tablet = $carousel_items_tablet ? $carousel_items_tablet : "1";
+		$carousel_mobile = $carousel_items_mobile ? $carousel_items_mobile : "1";
+		$carousel_small_mobile = $carousel_items_mobile ? $carousel_items_mobile : "1";
+		$carousel_margin = $carousel_margin ? $carousel_margin : "0";
+		$carousel_autoplay_timeout = $carousel_autoplay_timeout ? $carousel_autoplay_timeout : '';
+		$carousel_loop = ('true' == $carousel_loop) ? "true" : "false";
+		$carousel_dots = ('true' == $carousel_dots) ? "true" : "false";
+		$carousel_nav = ('true' == $carousel_nav) ? "true" : "false";
+		$carousel_autoplay = ('true' == $carousel_autoplay) ? "true" : "false";
+		$carousel_animate_out = ('true' == $carousel_animate_out) ? "true" : "false";
+		$carousel_mousedrag = ('true' == $carousel_mousedrag) ? "true" : "false";
+		$carousel_autowidth = ('true' == $carousel_autowidth) ? "true" : "false";
+		$carousel_autoheight = ('true' == $carousel_autoheight) ? "true" : "false";	
 
 		if ($testimonials_style === 'two') {
-			$output = '<div class="naeep-testimonials"><div class="owl-carousel" '. $carousel_loop . $carousel_items . $carousel_margin . $carousel_dots . $carousel_nav . $carousel_autoplay_timeout . $carousel_autoplay . $carousel_animate_out . $carousel_mousedrag . $carousel_autowidth . $carousel_autoheight  . $carousel_tablet . $carousel_mobile . $carousel_small_mobile .'>';
+
+			$output .= '<div class="owl-carousel" data-items="'. esc_attr( $carousel_items ) .'" data-items-tablet="'. esc_attr( $carousel_items_tablet ) .'" data-items-mobile-landscape="'. esc_attr( $carousel_mobile ) .'" data-items-mobile-portrait="'. esc_attr( $carousel_small_mobile ) .'" data-margin="'. esc_attr( $carousel_margin ) .'" data-autoplay-timeout="'. esc_attr( $carousel_autoplay_timeout ) .'" data-loop="'. esc_attr( $carousel_loop ) .'" data-dots="'. esc_attr( $carousel_dots ) .'" data-nav="'. esc_attr( $carousel_nav ) .'" data-autoplay="'. esc_attr( $carousel_autoplay ) .'" data-animateout="'. esc_attr( $carousel_animate_out ) .'" data-mouse-drag="'. esc_attr( $carousel_mousedrag ) .'" data-auto-width="'. esc_attr( $carousel_autowidth ) .'" data-auto-height="'. esc_attr( $carousel_autoheight ) .'"';
 
 				if ( !empty( $testimonials_groups ) && is_array( $testimonials_groups ) ){
 					// Group Param Output

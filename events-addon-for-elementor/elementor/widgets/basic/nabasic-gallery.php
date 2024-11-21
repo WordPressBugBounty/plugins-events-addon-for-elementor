@@ -907,7 +907,7 @@ class Event_Elementor_Addon_Gallery extends Widget_Base{
 		$icon_alignment = !empty( $settings['icon_alignment'] ) ? $settings['icon_alignment'] : '';
 		$gallery_item = !empty( $settings['gallery_item'] ) ? $settings['gallery_item'] : '';
 
-		$gallery_all_filter = $gallery_all_filter ? $gallery_all_filter : esc_html( 'All', 'events-addon-for-elementor' );
+		$gallery_all_filter = $gallery_all_filter ? esc_html($gallery_all_filter) : esc_html( 'All', 'events-addon-for-elementor' );
 
 		if ($dot_position === 'top'){
 		  $dot_cls = ' dot-top';

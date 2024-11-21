@@ -408,10 +408,10 @@ if ( is_plugin_active( 'event-organiser/event-organiser.php' ) ) {
 			$where_icon = !empty( $settings['where_icon'] ) ? $settings['where_icon']['value'] : '';
 			$where_title = !empty( $settings['where_title'] ) ? $settings['where_title'] : '';
 			$date_format = !empty( $settings['date_format'] ) ? $settings['date_format'] : '';
-	  	$date_format = $date_format ? $date_format : 'd M, Y';
+	  		$date_format = $date_format ? $date_format : 'd M, Y';
 
-			$when_icon = $when_icon ? '<div class="naeep-icon"><i class="'.$when_icon.'"></i></div>' : '';
-			$where_icon = $where_icon ? '<div class="naeep-icon"><i class="'.$where_icon.'"></i></div>' : '';
+			$when_icon = $when_icon ? '<div class="naeep-icon"><i class="'.esc_attr( $when_icon ).'"></i></div>' : '';
+			$where_icon = $where_icon ? '<div class="naeep-icon"><i class="'.esc_attr( $where_icon ).'"></i></div>' : '';
 
 			// Turn output buffer on
 			ob_start();
@@ -425,22 +425,22 @@ if ( is_plugin_active( 'event-organiser/event-organiser.php' ) ) {
 				$my_page = get_query_var( 'page' );
 			  else
 				$my_page = 1;
-			  set_query_var( 'paged', $my_page );
-			  $paged = $my_page;
+			  	set_query_var( 'paged', $my_page );
+			  	$paged = $my_page;
 			}
 			if ($event_id) {
 				$event_id = json_encode( $event_id );
 				$event_id = str_replace(array( '[', ']' ), '', $event_id);
 				$event_id = str_replace(array( '"', '"' ), '', $event_id);
-	      $event_id = explode(',',$event_id);
-	    } else {
-	      $event_id = '';
-	    }
+		      	$event_id = explode(',',$event_id);
+		    } else {
+		      	$event_id = '';
+		    }
 			$args = array(
-			  'paged' => $my_page,
-			  'post_type' => 'event',
-			  'posts_per_page' => 1,
-		  	'post__in' => $event_id,
+			  	'paged' => $my_page,
+			  	'post_type' => 'event',
+			  	'posts_per_page' => 1,
+		  		'post__in' => $event_id,
 			);
 			$naevents_event = new \WP_Query( $args );
 			if ($naevents_event->have_posts()) : ?>

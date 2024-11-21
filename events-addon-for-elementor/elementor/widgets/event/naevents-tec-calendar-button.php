@@ -343,11 +343,11 @@ if ( is_plugin_active( 'the-events-calendar/the-events-calendar.php' ) ) {
 			$link_external = !empty( $btn_link['is_external'] ) ? 'target="_blank"' : '';
 			$link_nofollow = !empty( $btn_link['nofollow'] ) ? 'rel="nofollow"' : '';
 			$link_attr = !empty( $btn_link['url'] ) ?  $link_external.' '.$link_nofollow : '';
-		  $new_tab = !empty( $settings['new_tab'] ) ? $settings['new_tab'] : '';
+		  	$new_tab = !empty( $settings['new_tab'] ) ? $settings['new_tab'] : '';
 
-		  $new_tab = $new_tab ? ' target="_blank"' : '';
+		  	$new_tab = $new_tab ? ' target="_blank"' : '';
 
-			$btn_icon = $btn_icon ? '<i class="'.$btn_icon.'" aria-hidden="true"></i>' : '';
+			$btn_icon = $btn_icon ? '<i class="'.esc_attr( $btn_icon ).'" aria-hidden="true"></i>' : '';
 
 			if ($button_type === 'google') {
 				$link = tribe_get_gcal_link($event_id);
@@ -357,7 +357,7 @@ if ( is_plugin_active( 'the-events-calendar/the-events-calendar.php' ) ) {
 				$link = $link_url;
 			}
 
-		  $button = '<a href="'.$link.'" '.$link_attr.$new_tab.' class="naeep-btn">'.$btn_icon.$btn_text.'</a>';
+		  	$button = '<a href="'.esc_url( $link ).'" '.$link_attr.$new_tab.' class="naeep-btn">'.esc_attr( $btn_icon ).esc_html( $btn_text ).'</a>';
 
 			$output = '<div class="naeep-btn-wrap">'.$button.'</div>';
 

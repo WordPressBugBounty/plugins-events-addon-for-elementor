@@ -829,7 +829,8 @@ class Event_Elementor_Addon_GetApps extends Widget_Base{
 										$btn = $btn_text;
 										$icon = $btn_icon;
 									}
-								  $output .= '<a href="'.esc_url($link_url).'" '.$link_attr.' class="'.esc_attr($style_class).'" style="'.esc_attr($logo_width).' '.esc_attr($logo_height).'">'.$icon.$btn.'</a>';
+								  
+								  	$output .= '<a href="'.esc_url($link_url).'" '.$link_attr.' class="'.esc_attr($style_class).'" style="'.esc_attr($logo_width).' '.esc_attr($logo_height).'">'.$icon.$btn.'</a>';
 									}
 									$output .= '</div>';
 								}

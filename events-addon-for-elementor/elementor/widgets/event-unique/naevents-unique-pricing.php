@@ -620,16 +620,16 @@ class Event_Elementor_Addon_Unique_Pricing extends Widget_Base{
 
 		$title = $pricing_title ? '<h4 class="price-subtitle">'.esc_html($pricing_title).'</h4>' : '';
 		$price = $pricing_price ? '<h2 class="price-title">'.esc_html($pricing_price).'</h2>' : '';
-  	$button = $pricing_btn_link ? '<div class="naeep-btn-wrap"><a href="'.esc_url($pricing_btn_link).'" '.$pricing_btn_link_attr.' class="naeep-btn">'.esc_html($pricing_btn).'</a></div>' : '';
+  		$button = $pricing_btn_link ? '<div class="naeep-btn-wrap"><a href="'.esc_url($pricing_btn_link).'" '.$pricing_btn_link_attr.' class="naeep-btn">'.esc_html($pricing_btn).'</a></div>' : '';
 
-  	$tickets = $total_tickets ? ($filled_tickets/$total_tickets) : '';
-  	$tickets_percent = $tickets ? ($tickets*100) : '';
+  		$tickets = $total_tickets ? ($filled_tickets/$total_tickets) : '';
+  		$tickets_percent = $tickets ? ($tickets*100) : '';
 
-  	if ($disable_animation) {
-  		$btn_cls = ' no-hover';
-  	} else {
-  		$btn_cls = '';
-  	}
+	  	if ($disable_animation) {
+	  		$btn_cls = ' no-hover';
+	  	} else {
+	  		$btn_cls = '';
+	  	}
 
 		$output = '<div class="naeep-price-item naeep-item'.$btn_cls.'">
 	              '.$title.$price.'
@@ -652,7 +652,7 @@ class Event_Elementor_Addon_Unique_Pricing extends Widget_Base{
 										  $output .= '<li'.$disable_class.'>'. do_shortcode($pricing_text) .'</li>';
 									  }
 									}
-    $output .= '</ul>
+				$output .= '</ul>
 	              '.$button.'
 	            </div>';
 

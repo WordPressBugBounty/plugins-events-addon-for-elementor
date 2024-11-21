@@ -238,12 +238,12 @@ if ( is_plugin_active( 'events-manager/events-manager.php' ) ) {
 			$settings = $this->get_settings_for_display();
 			$form_title = !empty( $settings['form_title'] ) ? $settings['form_title'] : '';
 			$form_content = !empty( $settings['form_content'] ) ? $settings['form_content'] : '';
-			$title = $form_title ? '<h3>'.$form_title.'</h3>' : '';
-			$content = $form_content ? '<p>'.$form_content.'</p>' : '';
+			$title = $form_title ? '<h3>'.esc_html( $form_title ).'</h3>' : '';
+			$content = $form_content ? '<p>'.esc_html( $form_content ).'</p>' : '';
 
-	  	$output = '<div class="naeep-form naeep-em-search">'.$title.$content.do_shortcode( '[event_search_form]' ).'</div>';
+	  		$output = '<div class="naeep-form naeep-em-search">'.$title.$content.do_shortcode( '[event_search_form]' ).'</div>';
 
-		  echo $output;
+		  	echo $output;
 
 		}
 

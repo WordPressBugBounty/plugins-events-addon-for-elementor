@@ -528,9 +528,9 @@ if ( function_exists('espresso_version') ) {
 			$settings = $this->get_settings_for_display();
 			$event_id 		= !empty( $settings['event_id'] ) ? $settings['event_id'] : '';
 
-			$event_id = $event_id ? ' event_id="'.$event_id.'"' : '';
+			$event_id = $event_id ? ' event_id="'.esc_attr( $event_id ).'"' : '';
 
-	  	$output = '<div class="naeep-ee-ticket naeep-form">'.do_shortcode( '[ESPRESSO_TICKET_SELECTOR'. $event_id .']' ).'</div>';
+	  		$output = '<div class="naeep-ee-ticket naeep-form">'.do_shortcode( '[ESPRESSO_TICKET_SELECTOR'. $event_id .']' ).'</div>';
 
 		  echo $output;
 

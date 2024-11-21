@@ -468,32 +468,32 @@ class Event_Elementor_Addon_Unique_Organizer extends Widget_Base{
 					$image_link_nofollow = !empty( $each_logo['image_link']['nofollow'] ) ? 'rel="nofollow"' : '';
 					$image_link_attr = !empty( $image_link ) ?  $image_link_external.' '.$image_link_nofollow : '';
 
-					$organizer_subtitle = !empty( $each_logo['organizer_subtitle'] ) ? $each_logo['organizer_subtitle'] : '';
-					$organizer_title = !empty( $each_logo['organizer_title'] ) ? $each_logo['organizer_title'] : '';
-					$title_link = !empty( $each_logo['title_link']['url'] ) ? $each_logo['title_link']['url'] : '';
+					$organizer_subtitle = !empty( $each_logo['organizer_subtitle'] ) ? esc_html($each_logo['organizer_subtitle']) : '';
+					$organizer_title = !empty( $each_logo['organizer_title'] ) ? esc_html($each_logo['organizer_title']) : '';
+					$title_link = !empty( $each_logo['title_link']['url'] ) ? esc_url($each_logo['title_link']['url']) : '';
 					$title_link_external = !empty( $each_logo['title_link']['is_external'] ) ? 'target="_blank"' : '';
 					$title_link_nofollow = !empty( $each_logo['title_link']['nofollow'] ) ? 'rel="nofollow"' : '';
 					$title_link_attr = !empty( $title_link ) ?  $title_link_external.' '.$title_link_nofollow : '';
 					$organizer_content = !empty( $each_logo['organizer_content'] ) ? $each_logo['organizer_content'] : '';
 
 					$organizer_more = !empty( $each_logo['organizer_more'] ) ? $each_logo['organizer_more'] : '';
-					$organizer_more_link = !empty( $each_logo['organizer_more_link'] ) ? $each_logo['organizer_more_link'] : '';
+					$organizer_more_link = !empty( $each_logo['organizer_more_link'] ) ? esc_url($each_logo['organizer_more_link']) : '';
 					$more_link_url = !empty( $organizer_more_link['url'] ) ? esc_url($organizer_more_link['url']) : '';
 					$more_link_external = !empty( $organizer_more_link['is_external'] ) ? 'target="_blank"' : '';
 					$more_link_nofollow = !empty( $organizer_more_link['nofollow'] ) ? 'rel="nofollow"' : '';
 					$more_link_attr = !empty( $organizer_more_link['url'] ) ?  $more_link_external.' '.$more_link_nofollow : '';
 
 					$link = $title_link ? '<a href="'.$title_link.'" '.$title_link_attr.'>'.$organizer_title.'</a>' : $organizer_title;
-			  	$title = !empty( $organizer_title ) ? '<h3 class="organizer-title">'.$link.'</h3>' : '';
+			  		$title = !empty( $organizer_title ) ? '<h3 class="organizer-title">'.$link.'</h3>' : '';
 
-			  	$subtitle = !empty( $organizer_subtitle ) ? '<h5>'.$organizer_subtitle.'</h5>' : '';
-					$content = $organizer_content ? '<p>'.$organizer_content.'</p>' : '';
+			  		$subtitle = !empty( $organizer_subtitle ) ? '<h5>'.$organizer_subtitle.'</h5>' : '';
+					$content = $organizer_content ? '<p>'.esc_html( $organizer_content ).'</p>' : '';
 
-		  		$button = !empty($more_link_url) ? '<div class="naeep-link-wrap"><a href="'.$more_link_url.'" '.$more_link_attr.' class="naeep-link">'.$organizer_more.'</a></div>' : '';
+		  			$button = !empty($more_link_url) ? '<div class="naeep-link-wrap"><a href="'.$more_link_url.'" '.$more_link_attr.' class="naeep-link">'.esc_html( $organizer_more ).'</a></div>' : '';
 
 					$image_url = wp_get_attachment_url( $organizer_image );
 
-					$link_image = $image_link ? '<div class="naeep-image"><a href="'.$image_link.'" '.$image_link_attr.'><img src="'.$image_url.'" alt="'.$organizer_title.'"></a></div>' : '<div class="naeep-image"><img src="'.$image_url.'" alt="'.$organizer_title.'"></div>';
+					$link_image = $image_link ? '<div class="naeep-image"><a href="'.esc_url($image_link).'" '.$image_link_attr.'><img src="'.$image_url.'" alt="'.$organizer_title.'"></a></div>' : '<div class="naeep-image"><img src="'.esc_url($image_url).'" alt="'.$organizer_title.'"></div>';
 					$image = $image_url ? $link_image : ''; ?>
 
 				  <div class="<?php echo esc_attr($col_class); ?>">

@@ -1137,7 +1137,34 @@ $( window ).on( 'elementor/frontend/init', function() {
       stringsElement: '.'+ target_var +'_strings',
     });   
   } );  
+  elementorFrontend.hooks.addAction( 'frontend/element_ready/naevents_basic_image_compare.default', function($scope, $) {
+    let target_el   = $scope.find(".naeep-compare");
+        let beforeUrl = target_el.data('before-url');
+        let beforeTitle = target_el.data('before-title');
+        let afterUrl = target_el.data('after-url');
+        let afterTitle = target_el.data('after-title');
+        let showLabels = target_el.data('show-labels');
+        let startingPosition = target_el.data('starting-position');
+        let compareStyle = target_el.data('compare-style');
 
+        new juxtapose.JXSlider(target_el[0], [
+            {
+                src: beforeUrl,
+                label: beforeTitle
+            },
+            {
+                src: afterUrl,
+                label: afterTitle
+            }
+        ], {
+            animate: true,
+            showLabels: showLabels,
+            showCredits: false,
+            startingPosition: startingPosition + "%",
+            makeResponsive: true,
+            mode: compareStyle
+        });
+  } );  
 } );
 
 })(jQuery);

@@ -860,7 +860,7 @@ if ( is_plugin_active( 'the-events-calendar/the-events-calendar.php' ) ) {
 							    	<?php } else { ?>
 							    		<span><?php echo tribe_get_start_date( null, false, 'h:i' ); ?> - <?php echo tribe_get_end_date( null, false, 'h:i' ); ?></span>
 							    	<?php } ?>
-							      <?php naevents_excerpt($short_content); ?>
+							      <?php naevents_excerpt(wp_kses_post( $short_content )); ?>
 							    </div>
 							  </div>
 							</div>

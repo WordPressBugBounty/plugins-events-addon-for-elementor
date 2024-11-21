@@ -331,23 +331,23 @@ if ( is_plugin_active( 'events-manager/events-manager.php' ) ) {
 		protected function render() {
 			$settings = $this->get_settings_for_display();
 			$event_limit 			= !empty( $settings['event_limit'] ) ? $settings['event_limit'] : '';
-			$event_offset 		= !empty( $settings['event_offset'] ) ? $settings['event_offset'] : '';
+			$event_offset 			= !empty( $settings['event_offset'] ) ? $settings['event_offset'] : '';
 			$event_order 			= !empty( $settings['event_order'] ) ? $settings['event_order'] : '';
-			$event_hide_empty = !empty( $settings['event_hide_empty'] ) ? $settings['event_hide_empty'] : '';
-			$event_pagination = !empty( $settings['event_pagination'] ) ? $settings['event_pagination'] : '';
+			$event_hide_empty 		= !empty( $settings['event_hide_empty'] ) ? $settings['event_hide_empty'] : '';
+			$event_pagination 		= !empty( $settings['event_pagination'] ) ? $settings['event_pagination'] : '';
 
-			$event_hide_empty = $event_hide_empty ? '1' : '';
-			$event_pagination = $event_pagination ? '1' : '';
+			$event_hide_empty 		= $event_hide_empty ? '1' : '';
+			$event_pagination 		= $event_pagination ? '1' : '';
 
-			$limit = $event_limit ? ' limit="'.$event_limit.'"' : '';
-			$offset = $event_offset ? ' offset="'.$event_offset.'"' : '';
-			$order = $event_order ? ' order="'.$event_order.'"' : '';
-			$hide_empty = $event_hide_empty ? ' hide_empty="'.$event_hide_empty.'"' : '';
-			$pagination = $event_pagination ? ' pagination="'.$event_pagination.'"' : '';
+			$limit = $event_limit ? ' limit="'.esc_attr( $event_limit ).'"' : '';
+			$offset = $event_offset ? ' offset="'.esc_attr( $event_offset ).'"' : '';
+			$order = $event_order ? ' order="'.esc_attr( $event_order ).'"' : '';
+			$hide_empty = $event_hide_empty ? ' hide_empty="'.esc_attr( $event_hide_empty ).'"' : '';
+			$pagination = $event_pagination ? ' pagination="'.esc_attr( $event_pagination ).'"' : '';
 
-	  	$output = '<div class="naeep-em-category">'.do_shortcode( '[categories_list' . $limit . $offset . $order . $hide_empty . $pagination . ']' ).'</div>';
+	  		$output = '<div class="naeep-em-category">'.do_shortcode( '[categories_list' . $limit . $offset . $order . $hide_empty . $pagination . ']' ).'</div>';
 
-		  echo $output;
+		  	echo $output;
 
 		}
 

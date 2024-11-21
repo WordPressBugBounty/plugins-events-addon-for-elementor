@@ -439,11 +439,11 @@ if ( is_plugin_active( 'the-events-calendar/the-events-calendar.php' ) ) {
 			$who_icon = !empty( $settings['who_icon'] ) ? $settings['who_icon']['value'] : '';
 			$who_title = !empty( $settings['who_title'] ) ? $settings['who_title'] : '';
 			$date_format = !empty( $settings['date_format'] ) ? $settings['date_format'] : '';
-	  	$date_format = $date_format ? $date_format : 'd M, Y';
+	  		$date_format = $date_format ? esc_attr( $date_format ) : 'd M, Y';
 
-			$when_icon = $when_icon ? '<div class="naeep-icon"><i class="'.$when_icon.'"></i></div>' : '';
-			$where_icon = $where_icon ? '<div class="naeep-icon"><i class="'.$where_icon.'"></i></div>' : '';
-			$who_icon = $who_icon ? '<div class="naeep-icon"><i class="'.$who_icon.'"></i></div>' : '';
+			$when_icon = $when_icon ? '<div class="naeep-icon"><i class="'.esc_attr( $when_icon ).'"></i></div>' : '';
+			$where_icon = $where_icon ? '<div class="naeep-icon"><i class="'.esc_attr( $where_icon ).'"></i></div>' : '';
+			$who_icon = $who_icon ? '<div class="naeep-icon"><i class="'.esc_attr( $who_icon ).'"></i></div>' : '';
 
 			// Turn output buffer on
 			ob_start();
@@ -479,8 +479,8 @@ if ( is_plugin_active( 'the-events-calendar/the-events-calendar.php' ) ) {
 					<div class="naeep-event-info">
 					  <div class="col-na-row">
 							<?php while ($naevents_event->have_posts()) : $naevents_event->the_post();
-							$venu_details = tribe_get_venue_details ( get_the_ID() );
-	  					$organizer_ids = tribe_get_organizer_ids(); ?>
+								$venu_details = tribe_get_venue_details ( get_the_ID() );
+	  							$organizer_ids = tribe_get_organizer_ids(); ?>
 								<div class="col-na-4">
 									<div class="event-info-item naeep-item">
 										<?php echo $when_icon; ?>
@@ -493,11 +493,11 @@ if ( is_plugin_active( 'the-events-calendar/the-events-calendar.php' ) ) {
 									<div class="event-info-item naeep-item">
 										<?php echo $where_icon; ?>
 										<h3><?php echo esc_html($where_title); ?></h3>
-							    	<span>
-							    		<?php if (!empty($venu_details['address'])) {
-	                      echo $venu_details['address'];
-	                    } ?>
-							    	</span>
+								    	<span>
+								    		<?php if (!empty($venu_details['address'])) {
+		                      					echo $venu_details['address'];
+	                    					} ?>
+								    	</span>
 									</div>
 								</div>
 								<div class="col-na-4">
@@ -505,9 +505,9 @@ if ( is_plugin_active( 'the-events-calendar/the-events-calendar.php' ) ) {
 										<?php echo $who_icon; ?>
 										<h3><?php echo esc_html($who_title); ?></h3>
 							    	<?php foreach ( $organizer_ids as $organizer ) {
-					            $link = false;
-					            echo '<span>'.tribe_get_organizer_link( $organizer ).'</span>';
-					          } ?>
+							            $link = false;
+							            echo '<span>'.tribe_get_organizer_link( $organizer ).'</span>';
+							          } ?>
 									</div>
 								</div>
 							<?php endwhile;

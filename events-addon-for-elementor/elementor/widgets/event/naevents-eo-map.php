@@ -227,48 +227,48 @@ if ( is_plugin_active( 'event-organiser/event-organiser.php' ) ) {
 		 * Written in PHP and used to generate the final HTML.
 		*/
 		protected function render() {
-			$settings = $this->get_settings_for_display();
-			$event_venue 				= !empty( $settings['event_venue'] ) ? $settings['event_venue'] : '';
-			$custom_class 			= !empty( $settings['custom_class'] ) ? $settings['custom_class'] : '';
-			$map_width 					= !empty( $settings['map_width']['size'] ) ? $settings['map_width']['size'] : '';
-			$width_unit 				= !empty( $settings['map_width']['unit'] ) ? $settings['map_width']['unit'] : '';
-			$map_height 				= !empty( $settings['map_height']['size'] ) ? $settings['map_height']['size'] : '';
-			$height_unit 				= !empty( $settings['map_height']['unit'] ) ? $settings['map_height']['unit'] : '';
-			$map_zoom 					= !empty( $settings['map_zoom']['size'] ) ? $settings['map_zoom']['size'] : '';
-			$zoomcontrol 				= !empty( $settings['zoomcontrol'] ) ? $settings['zoomcontrol'] : '';
-			$rotatecontrol 			= !empty( $settings['rotatecontrol'] ) ? $settings['rotatecontrol'] : '';
-			$pancontrol 				= !empty( $settings['pancontrol'] ) ? $settings['pancontrol'] : '';
-			$overviewmapcontrol = !empty( $settings['overviewmapcontrol'] ) ? $settings['overviewmapcontrol'] : '';
-			$streetviewcontrol 	= !empty( $settings['streetviewcontrol'] ) ? $settings['streetviewcontrol'] : '';
-			$draggable 					= !empty( $settings['draggable'] ) ? $settings['draggable'] : '';
-			$maptypecontrol 		= !empty( $settings['maptypecontrol'] ) ? $settings['maptypecontrol'] : '';
-			$maptypeid 					= !empty( $settings['maptypeid'] ) ? $settings['maptypeid'] : '';
+			$settings 						= $this->get_settings_for_display();
+			$event_venue 					= !empty( $settings['event_venue'] ) ? $settings['event_venue'] : '';
+			$custom_class 					= !empty( $settings['custom_class'] ) ? $settings['custom_class'] : '';
+			$map_width 						= !empty( $settings['map_width']['size'] ) ? $settings['map_width']['size'] : '';
+			$width_unit 					= !empty( $settings['map_width']['unit'] ) ? $settings['map_width']['unit'] : '';
+			$map_height 					= !empty( $settings['map_height']['size'] ) ? $settings['map_height']['size'] : '';
+			$height_unit 					= !empty( $settings['map_height']['unit'] ) ? $settings['map_height']['unit'] : '';
+			$map_zoom 						= !empty( $settings['map_zoom']['size'] ) ? $settings['map_zoom']['size'] : '';
+			$zoomcontrol 					= !empty( $settings['zoomcontrol'] ) ? $settings['zoomcontrol'] : '';
+			$rotatecontrol 					= !empty( $settings['rotatecontrol'] ) ? $settings['rotatecontrol'] : '';
+			$pancontrol 					= !empty( $settings['pancontrol'] ) ? $settings['pancontrol'] : '';
+			$overviewmapcontrol 			= !empty( $settings['overviewmapcontrol'] ) ? $settings['overviewmapcontrol'] : '';
+			$streetviewcontrol 				= !empty( $settings['streetviewcontrol'] ) ? $settings['streetviewcontrol'] : '';
+			$draggable 						= !empty( $settings['draggable'] ) ? $settings['draggable'] : '';
+			$maptypecontrol 				= !empty( $settings['maptypecontrol'] ) ? $settings['maptypecontrol'] : '';
+			$maptypeid 						= !empty( $settings['maptypeid'] ) ? $settings['maptypeid'] : '';
 
-			$zoomcontrol = $zoomcontrol ? 'true' : 'false';
-			$rotatecontrol = $rotatecontrol ? 'true' : 'false';
-			$pancontrol = $pancontrol ? 'true' : 'false';
-			$overviewmapcontrol = $overviewmapcontrol ? 'true' : 'false';
-			$streetviewcontrol = $streetviewcontrol ? 'true' : 'false';
-			$draggable = $draggable ? 'true' : 'false';
-			$maptypecontrol = $maptypecontrol ? 'true' : 'false';
+			$zoomcontrol 					= $zoomcontrol ? 'true' : 'false';
+			$rotatecontrol 					= $rotatecontrol ? 'true' : 'false';
+			$pancontrol 					= $pancontrol ? 'true' : 'false';
+			$overviewmapcontrol 			= $overviewmapcontrol ? 'true' : 'false';
+			$streetviewcontrol 				= $streetviewcontrol ? 'true' : 'false';
+			$draggable 						= $draggable ? 'true' : 'false';
+			$maptypecontrol 				= $maptypecontrol ? 'true' : 'false';
 
-			$venue 							= $event_venue ? ' event_venue="'.implode(',', $event_venue).'"' : ' event_venue="%all%"';
-			$class 							= $custom_class ? ' class="'.$custom_class.'"' : '';
-			$width 							= $map_width ? ' width ="'.$map_width.$width_unit.'"' : '';
-			$height 						= $map_height ? ' height ="'.$map_height.$height_unit.'"' : '';
-			$zoom 							= $map_zoom ? ' zoom ="'.$map_zoom.'"' : '';
-			$zoomcontrol 				= $zoomcontrol ? ' zoomcontrol ="'.$zoomcontrol.'"' : '';
-			$rotatecontrol 			= $rotatecontrol ? ' rotatecontrol ="'.$rotatecontrol.'"' : '';
-			$pancontrol 				= $pancontrol ? ' pancontrol ="'.$pancontrol.'"' : '';
-			$overviewmapcontrol = $overviewmapcontrol ? ' overviewmapcontrol ="'.$overviewmapcontrol.'"' : '';
-			$streetviewcontrol 	= $streetviewcontrol ? ' streetviewcontrol ="'.$streetviewcontrol.'"' : '';
-			$draggable 					= $draggable ? ' draggable ="'.$draggable.'"' : '';
-			$maptypecontrol	 		= $maptypecontrol ? ' maptypecontrol ="'.$maptypecontrol.'"' : '';
-			$maptypeid 					= $maptypeid ? ' maptypeid ="'.$maptypeid.'"' : '';
+			$venue 							= $event_venue ? ' event_venue="'.implode(',', esc_attr( $event_venue )).'"' : ' event_venue="%all%"';
+			$class 							= $custom_class ? ' class="'.esc_attr( $custom_class ).'"' : '';
+			$width 							= $map_width ? ' width ="'.esc_attr( $map_width ).esc_attr( $width_unit ).'"' : '';
+			$height 						= $map_height ? ' height ="'.esc_attr( $map_height ).esc_attr( $height_unit ).'"' : '';
+			$zoom 							= $map_zoom ? ' zoom ="'.esc_attr( $map_zoom ).'"' : '';
+			$zoomcontrol 					= $zoomcontrol ? ' zoomcontrol ="'.esc_attr( $zoomcontrol ).'"' : '';
+			$rotatecontrol 					= $rotatecontrol ? ' rotatecontrol ="'.esc_attr( $rotatecontrol ).'"' : '';
+			$pancontrol 					= $pancontrol ? ' pancontrol ="'.esc_attr( $pancontrol ).'"' : '';
+			$overviewmapcontrol 			= $overviewmapcontrol ? ' overviewmapcontrol ="'.esc_attr( $overviewmapcontrol ).'"' : '';
+			$streetviewcontrol 				= $streetviewcontrol ? ' streetviewcontrol ="'.esc_attr( $streetviewcontrol ).'"' : '';
+			$draggable 						= $draggable ? ' draggable ="'.esc_attr( $draggable ).'"' : '';
+			$maptypecontrol	 				= $maptypecontrol ? ' maptypecontrol ="'.esc_attr( $maptypecontrol ).'"' : '';
+			$maptypeid 						= $maptypeid ? ' maptypeid ="'.esc_attr( $maptypeid ).'"' : '';
 
-	  	$output = '<div class="naeep-eo-map">'.do_shortcode( '[eo_venue_map'. $venue . $class . $width . $height . $zoom . $zoomcontrol . $rotatecontrol . $pancontrol . $overviewmapcontrol . $streetviewcontrol . $draggable . $maptypecontrol . $maptypeid .']' ).'</div>';
+	  		$output = '<div class="naeep-eo-map">'.do_shortcode( '[eo_venue_map'. $venue . $class . $width . $height . $zoom . $zoomcontrol . $rotatecontrol . $pancontrol . $overviewmapcontrol . $streetviewcontrol . $draggable . $maptypecontrol . $maptypeid .']' ).'</div>';
 
-		  echo $output;
+		  	echo $output;
 
 		}
 

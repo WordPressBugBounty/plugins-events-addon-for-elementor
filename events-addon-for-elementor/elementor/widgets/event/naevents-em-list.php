@@ -843,22 +843,22 @@ if ( is_plugin_active( 'events-manager/events-manager.php' ) ) {
 		 * Written in PHP and used to generate the final HTML.
 		*/
 		protected function render() {
-			$settings = $this->get_settings_for_display();
+			$settings 				= $this->get_settings_for_display();
 			$event_limit 			= !empty( $settings['event_limit'] ) ? $settings['event_limit'] : '';
-			$event_offset 		= !empty( $settings['event_offset'] ) ? $settings['event_offset'] : '';
+			$event_offset 			= !empty( $settings['event_offset'] ) ? $settings['event_offset'] : '';
 			$event_scope 			= !empty( $settings['event_scope'] ) ? $settings['event_scope'] : '';
 			$event_order 			= !empty( $settings['event_order'] ) ? $settings['event_order'] : '';
-			$event_orderby 		= !empty( $settings['event_orderby'] ) ? $settings['event_orderby'] : '';
-			$event_category 	= !empty( $settings['event_category'] ) ? $settings['event_category'] : '';
+			$event_orderby 			= !empty( $settings['event_orderby'] ) ? $settings['event_orderby'] : '';
+			$event_category 		= !empty( $settings['event_category'] ) ? $settings['event_category'] : '';
 			$event_category_hide 	= !empty( $settings['event_category_hide'] ) ? $settings['event_category_hide'] : '';
 			$event_tag 				= !empty( $settings['event_tag'] ) ? $settings['event_tag'] : '';
-			$event_tag_hide 	= !empty( $settings['event_tag_hide'] ) ? $settings['event_tag_hide'] : '';
-			$event_id 			  = !empty( $settings['event_id'] ) ? $settings['event_id'] : '';
+			$event_tag_hide 		= !empty( $settings['event_tag_hide'] ) ? $settings['event_tag_hide'] : '';
+			$event_id 			  	= !empty( $settings['event_id'] ) ? $settings['event_id'] : '';
 			$event_year 			= !empty( $settings['event_year'] ) ? $settings['event_year'] : '';
 			$event_month 			= !empty( $settings['event_month'] ) ? $settings['event_month'] : '';
-			$event_countries 	= !empty( $settings['event_countries'] ) ? $settings['event_countries'] : '';
-			$event_bookings 	= !empty( $settings['event_bookings'] ) ? $settings['event_bookings'] : '';
-			$event_pagination = !empty( $settings['event_pagination'] ) ? $settings['event_pagination'] : '';
+			$event_countries 		= !empty( $settings['event_countries'] ) ? $settings['event_countries'] : '';
+			$event_bookings 		= !empty( $settings['event_bookings'] ) ? $settings['event_bookings'] : '';
+			$event_pagination 		= !empty( $settings['event_pagination'] ) ? $settings['event_pagination'] : '';
 
 			$category_hide = $event_category_hide ? '-' : '';
 			$tag_hide = $event_tag_hide ? '-' : '';
@@ -866,19 +866,19 @@ if ( is_plugin_active( 'events-manager/events-manager.php' ) ) {
 			$event_bookings = $event_bookings ? '1' : '';
 			$event_pagination = $event_pagination ? '1' : '';
 
-			$limit = $event_limit ? ' limit="'.$event_limit.'"' : '';
-			$offset = $event_offset ? ' offset="'.$event_offset.'"' : '';
-			$scope = $event_scope ? ' scope="'.$event_scope.'"' : '';
-			$order = $event_order ? ' order="'.$event_order.'"' : '';
-			$orderby = $event_orderby ? ' orderby="'.$event_orderby.'"' : '';
-			$category = $event_category ? ' category="'.$category_hide.implode(', '.$category_hide, $event_category).'"' : '';
-			$tag = $event_tag ? ' tag="'.$tag_hide.implode(', '.$tag_hide, $event_tag).'"' : '';
-			$show_id = $event_id ? ' post_id="'.implode(',', $event_id).'"' : '';
-			$year = $event_year ? ' year="'.$event_year.'"' : '';
-			$month = $event_month ? ' month="'.$event_month.'"' : '';
-			$countries = $event_countries ? ' country="'.$event_countries.'"' : '';
-			$bookings = $event_bookings ? ' bookings="'.$event_bookings.'"' : '';
-			$pagination = $event_pagination ? ' pagination="'.$event_pagination.'"' : '';
+			$limit = $event_limit ? ' limit="'.esc_attr( $event_limit ).'"' : '';
+			$offset = $event_offset ? ' offset="'.esc_attr( $event_offset ).'"' : '';
+			$scope = $event_scope ? ' scope="'.esc_attr( $event_scope ).'"' : '';
+			$order = $event_order ? ' order="'.esc_attr( $event_order ).'"' : '';
+			$orderby = $event_orderby ? ' orderby="'.esc_attr( $event_orderby ).'"' : '';
+			$category = $event_category ? ' category="'.$category_hide.implode(', '.$category_hide, esc_attr( $event_category )).'"' : '';
+			$tag = $event_tag ? ' tag="'.$tag_hide.implode(', '.$tag_hide, esc_attr( $event_tag )).'"' : '';
+			$show_id = $event_id ? ' post_id="'.implode(',', esc_attr( $event_id )).'"' : '';
+			$year = $event_year ? ' year="'.esc_attr( $event_year ).'"' : '';
+			$month = $event_month ? ' month="'.esc_attr( $event_month ).'"' : '';
+			$countries = $event_countries ? ' country="'.esc_attr( $event_countries ).'"' : '';
+			$bookings = $event_bookings ? ' bookings="'.esc_attr( $event_bookings ).'"' : '';
+			$pagination = $event_pagination ? ' pagination="'.esc_attr( $event_pagination ).'"' : '';
 
 			if ($event_countries !== 'none') {
 				$countries = $countries;
@@ -886,9 +886,9 @@ if ( is_plugin_active( 'events-manager/events-manager.php' ) ) {
 				$countries = '';
 			}
 
-	  	$output = '<div class="naeep-em-list">'.do_shortcode( '[events_list' . $limit . $offset . $scope . $order . $orderby . $category . $tag . $show_id . $year . $month . $countries . $bookings . $pagination . ']' ).'</div>';
+	  		$output = '<div class="naeep-em-list">'.do_shortcode( '[events_list' . $limit . $offset . $scope . $order . $orderby . $category . $tag . $show_id . $year . $month . $countries . $bookings . $pagination . ']' ).'</div>';
 
-		  echo $output;
+		  	echo $output;
 
 		}
 
