@@ -72,7 +72,7 @@ if ( ! function_exists( 'naevents_insert_elementor' ) ) {
             return '';
         }
     }
-    add_shortcode('naevents_elementor_template', 'naevents_insert_elementor');
+    add_shortcode('naevents_elementor_template', 'Elementor\naevents_insert_elementor');
 }
 
 if ( !class_exists('NAEEP_Controls_Helper_Output') ){
