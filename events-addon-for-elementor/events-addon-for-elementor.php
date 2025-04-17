@@ -6,12 +6,12 @@ Plugin URI: https://nicheaddons.com/demos/events
 Description: Events Addon for Elementor covers all the must-needed elements for creating a perfect Event website using Elementor Page Builder. 30+ Unique & Basic Elementor widget covers all of the Event elements. Including getting a list of event posts from most popular Events WordPress plugins. Like, Accommodation, Venue, Conference, Event Timing Countdown, Organizer, Speakers, Schedules, Upcoming Events, and Tickets.
 Author: NicheAddons
 Author URI: https://nicheaddons.com/
-Version: 2.2.7.1
+Version: 2.2.9
 Text Domain: events-addon-for-elementor
 */
 include_once ABSPATH . 'wp-admin/includes/plugin.php';
 /* PLUGIN SELF PATH */
-define( 'NAEAFE_VERSION', '2.2.7' );
+define( 'NAEAFE_VERSION', '2.2.9' );
 define( 'NAEAFE_URL', plugins_url( '/', __FILE__ ) );
 // Freemius Code
 if ( !function_exists( 'eafe_fs' ) ) {

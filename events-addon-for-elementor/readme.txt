@@ -5,8 +5,8 @@ Plugin URI: https://nicheaddons.com/demos/events/
 Tags: elementor, addons, events, elementor widget, conference
 Requires PHP: 7.4
 Requires at least: 6.0
-Tested up to: 6.7.2
-Stable tag: 2.2.7.1
+Tested up to: 6.8
+Stable tag: 2.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -155,6 +155,9 @@ No, it'll not work without Elementor Page Builder, it's an addon for Elementor.
 
 
 == Changelog ==
+
+= 2.2.8
+* Eventbrite events fetching problem fix
 
 = 2.2.7
 * Deprecated function updated
