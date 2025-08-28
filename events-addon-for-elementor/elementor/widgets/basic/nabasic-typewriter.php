@@ -2,7 +2,7 @@
 /*
  * Elementor Events Addon for Elementor Typewriter Widget
  * Author & Copyright: NicheAddon
-*/
+ */
 
 namespace Elementor;
 
@@ -233,39 +233,90 @@ class Event_Elementor_Addon_Typewriter extends Widget_Base{
 	}
 
 	/**
+	 * Sanitize and validate user input
+	 */
+	private function sanitize_input($value, $type = 'text') {
+		switch ($type) {
+			case 'text':
+				return sanitize_text_field($value);
+			case 'html':
+				return wp_kses_post($value);
+			case 'number':
+				return intval($value);
+			case 'cursor':
+				// Special handling for cursor character - only allow safe characters
+				$cleaned = sanitize_text_field($value);
+				// Remove any HTML tags or dangerous characters
+				$cleaned = strip_tags($cleaned);
+				// Limit to single character for cursor
+				return mb_substr($cleaned, 0, 1);
+			default:
+				return sanitize_text_field($value);
+		}
+	}
+
+	/**
 	 * Render App Works widget output on the frontend.
 	 * Written in PHP and used to generate the final HTML.
 	*/
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$before_title = !empty( $settings['before_title'] ) ? $settings['before_title'] : '';
-		$animation_groups = !empty( $settings['animation_groups'] ) ? $settings['animation_groups'] : '';
-		$after_title = !empty( $settings['after_title'] ) ? $settings['after_title'] : '';
-		$cursorChar = !empty( $settings['cursorChar'] ) ? $settings['cursorChar'] : '';
-		$typeSpeed = !empty( $settings['typeSpeed'] ) ? $settings['typeSpeed'] : '';
-		$backSpeed = !empty( $settings['backSpeed'] ) ? $settings['backSpeed'] : '';
-		$startDelay = !empty( $settings['startDelay'] ) ? $settings['startDelay'] : '';
-		$backDelay = !empty( $settings['backDelay'] ) ? $settings['backDelay'] : '';
+		
+		// Sanitize all inputs
+		$before_title = !empty($settings['before_title']) ? $this->sanitize_input($settings['before_title']) : '';
+		$animation_groups = !empty($settings['animation_groups']) ? $settings['animation_groups'] : '';
+		$after_title = !empty($settings['after_title']) ? $this->sanitize_input($settings['after_title']) : '';
+		$cursorChar = !empty($settings['cursorChar']) ? $this->sanitize_input($settings['cursorChar'], 'cursor') : '|';
+		$typeSpeed = !empty($settings['typeSpeed']) ? $this->sanitize_input($settings['typeSpeed'], 'number') : 100;
+		$backSpeed = !empty($settings['backSpeed']) ? $this->sanitize_input($settings['backSpeed'], 'number') : 100;
+		$startDelay = !empty($settings['startDelay']) ? $this->sanitize_input($settings['startDelay'], 'number') : 100;
+		$backDelay = !empty($settings['backDelay']) ? $this->sanitize_input($settings['backDelay'], 'number') : 100;
+
+		// Validate numeric values
+		$typeSpeed = max(0, min(1500, $typeSpeed));
+		$backSpeed = max(0, min(1500, $backSpeed));
+		$startDelay = max(0, min(1500, $startDelay));
+		$backDelay = max(0, min(1500, $backDelay));
 
 		$typed_id = uniqid();
 		$id = rand(999, 9999);
 
-		$output = '<div class="naeep-typewriter" data-type-id="'.esc_attr($typed_id).'" data-id="'.esc_attr($id).'" data-type-speed="'.esc_attr($typeSpeed).'" data-back-speed="'.esc_attr($backSpeed).'" data-back-delay="'.esc_attr($backDelay).'" data-start-delay="'.esc_attr($startDelay).'" data-cursor-char="'.esc_attr($cursorChar).'">
-			          <h1>'.esc_html($before_title).'
-			            <span class="typed_'.esc_attr($typed_id).'_'.esc_attr($id).'_strings">';
-			            // Group Param Output
-						if ( is_array( $animation_groups ) && !empty( $animation_groups ) ){
-						  foreach ( $animation_groups as $each_list ) {
-								$animation_text = $each_list['animation_text'] ? $each_list['animation_text'] : '';
-							  $output .= '<span>'. esc_html($animation_text) .'</span>';
-						  }
-						}
-						$output .= '</span>
-			            <span class="typed_'.esc_attr($typed_id).'_'.esc_attr($id).'"></span>
-			          '.esc_html($after_title).'</h1>
-			         </div>';
-		echo $output;
+		// Use wp_kses to allow only safe HTML attributes
+		$allowed_html = array(
+			'div' => array(
+				'class' => array(),
+				'data-type-id' => array(),
+				'data-id' => array(),
+				'data-type-speed' => array(),
+				'data-back-speed' => array(),
+				'data-back-delay' => array(),
+				'data-start-delay' => array(),
+				'data-cursor-char' => array(),
+			),
+			'h1' => array(),
+			'span' => array(
+				'class' => array(),
+			),
+		);
 
+		$output = '<div class="naeep-typewriter" data-type-id="'.esc_attr($typed_id).'" data-id="'.esc_attr($id).'" data-type-speed="'.esc_attr($typeSpeed).'" data-back-speed="'.esc_attr($backSpeed).'" data-back-delay="'.esc_attr($backDelay).'" data-start-delay="'.esc_attr($startDelay).'" data-cursor-char="'.esc_attr($cursorChar).'">
+		          <h1>'.esc_html($before_title).'
+		            <span class="typed_'.esc_attr($typed_id).'_'.esc_attr($id).'_strings">';
+		            
+		            // Group Param Output - with proper sanitization
+					if (is_array($animation_groups) && !empty($animation_groups)) {
+					  foreach ($animation_groups as $each_list) {
+							$animation_text = !empty($each_list['animation_text']) ? $this->sanitize_input($each_list['animation_text']) : '';
+						  $output .= '<span>'. esc_html($animation_text) .'</span>';
+					  }
+					}
+					
+					$output .= '</span>
+		            <span class="typed_'.esc_attr($typed_id).'_'.esc_attr($id).'"></span>
+		          '.esc_html($after_title).'</h1>
+		         </div>';
+
+		echo wp_kses($output, $allowed_html);
 	}
 
 }

@@ -2,7 +2,7 @@
 /*
  * Elementor Events Addon for Elementor Unique Countdown Widget
  * Author & Copyright: NicheAddon
-*/
+ */
 
 namespace Elementor;
 
@@ -440,74 +440,134 @@ class Event_Elementor_Addon_Unique_Countdown extends Widget_Base{
 	}
 
 	/**
+	 * Sanitize and validate user input
+	 */
+	private function sanitize_input($value, $type = 'text') {
+		switch ($type) {
+			case 'text':
+				return sanitize_text_field($value);
+			case 'html':
+				return wp_kses_post($value);
+			case 'number':
+				return intval($value);
+			case 'date':
+				// Special handling for dates - validate format
+				return sanitize_text_field($value);
+			case 'format':
+				// Special handling for countdown format - only allow specific characters
+				$cleaned = sanitize_text_field($value);
+				// Only allow specific countdown format characters: Y, O, W, D, H, M, S, d, h, m, s
+				$cleaned = preg_replace('/[^YOWDHMSdhms]/', '', $cleaned);
+				return $cleaned;
+			case 'timezone':
+				// Special handling for timezone - validate format
+				$cleaned = sanitize_text_field($value);
+				// Only allow +/- followed by numbers for timezone
+				if (preg_match('/^[+-]?\d{1,2}(\.\d{1,2})?$/', $cleaned)) {
+					return $cleaned;
+				}
+				return '';
+			case 'label':
+				// Special handling for labels - remove HTML but allow basic text
+				$cleaned = sanitize_text_field($value);
+				return strip_tags($cleaned);
+			default:
+				return sanitize_text_field($value);
+		}
+	}
+
+	/**
 	 * Render Countdown widget output on the frontend.
 	 * Written in PHP and used to generate the final HTML.
 	*/
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$count_type = !empty( $settings['count_type'] ) ? $settings['count_type'] : '';
-		$timezone = !empty( $settings['timezone'] ) ? $settings['timezone'] : '';
-		$count_date_static = !empty( $settings['count_date_static'] ) ? $settings['count_date_static'] : '';
-		$fake_date = !empty( $settings['fake_date'] ) ? $settings['fake_date'] : '';
-		$countdown_format = !empty( $settings['countdown_format'] ) ? $settings['countdown_format'] : '';
-		$need_separator = !empty( $settings['need_separator'] ) ? $settings['need_separator'] : '';
+		
+		// Sanitize all inputs
+		$count_type = !empty($settings['count_type']) && in_array($settings['count_type'], ['static', 'fake']) 
+			? $settings['count_type'] : 'static';
+		$timezone = !empty($settings['timezone']) ? $this->sanitize_input($settings['timezone'], 'timezone') : '';
+		$count_date_static = !empty($settings['count_date_static']) ? $this->sanitize_input($settings['count_date_static'], 'date') : '';
+		$fake_date = !empty($settings['fake_date']) ? $this->sanitize_input($settings['fake_date'], 'number') : '';
+		$countdown_format = !empty($settings['countdown_format']) ? $this->sanitize_input($settings['countdown_format'], 'format') : 'dHMS';
+		$need_separator = !empty($settings['need_separator']) ? $settings['need_separator'] : '';
 
-		// Labels Plural
-		$label_years = !empty( $settings['label_years'] ) ? $settings['label_years'] : '';
-		$label_months = !empty( $settings['label_months'] ) ? $settings['label_months'] : '';
-		$label_weeks = !empty( $settings['label_weeks'] ) ? $settings['label_weeks'] : '';
-		$label_days = !empty( $settings['label_days'] ) ? $settings['label_days'] : '';
-		$label_hours = !empty( $settings['label_hours'] ) ? $settings['label_hours'] : '';
-		$label_minutes = !empty( $settings['label_minutes'] ) ? $settings['label_minutes'] : '';
-		$label_seconds = !empty( $settings['label_seconds'] ) ? $settings['label_seconds'] : '';
+		// Sanitize Labels Plural
+		$label_years = !empty($settings['label_years']) ? $this->sanitize_input($settings['label_years'], 'label') : '';
+		$label_months = !empty($settings['label_months']) ? $this->sanitize_input($settings['label_months'], 'label') : '';
+		$label_weeks = !empty($settings['label_weeks']) ? $this->sanitize_input($settings['label_weeks'], 'label') : '';
+		$label_days = !empty($settings['label_days']) ? $this->sanitize_input($settings['label_days'], 'label') : '';
+		$label_hours = !empty($settings['label_hours']) ? $this->sanitize_input($settings['label_hours'], 'label') : '';
+		$label_minutes = !empty($settings['label_minutes']) ? $this->sanitize_input($settings['label_minutes'], 'label') : '';
+		$label_seconds = !empty($settings['label_seconds']) ? $this->sanitize_input($settings['label_seconds'], 'label') : '';
 
-		$label_years = $label_years ? esc_html($label_years) : esc_html__('Years','events-addon-for-elementor');
-		$label_months = $label_months ? esc_html($label_months) : esc_html__('Months','events-addon-for-elementor');
-		$label_weeks = $label_weeks ? esc_html($label_weeks) : esc_html__('Weeks','events-addon-for-elementor');
-		$label_days = $label_days ? esc_html($label_days) : esc_html__('Days','events-addon-for-elementor');
-		$label_hours = $label_hours ? esc_html($label_hours) : esc_html__('Hours','events-addon-for-elementor');
-		$label_minutes = $label_minutes ? esc_html($label_minutes) : esc_html__('Minutes','events-addon-for-elementor');
-		$label_seconds = $label_seconds ? esc_html($label_seconds) : esc_html__('Seconds','events-addon-for-elementor');
+		// Set defaults for plural labels
+		$label_years = $label_years ? $label_years : esc_html__('Years','events-addon-for-elementor');
+		$label_months = $label_months ? $label_months : esc_html__('Months','events-addon-for-elementor');
+		$label_weeks = $label_weeks ? $label_weeks : esc_html__('Weeks','events-addon-for-elementor');
+		$label_days = $label_days ? $label_days : esc_html__('Days','events-addon-for-elementor');
+		$label_hours = $label_hours ? $label_hours : esc_html__('Hours','events-addon-for-elementor');
+		$label_minutes = $label_minutes ? $label_minutes : esc_html__('Minutes','events-addon-for-elementor');
+		$label_seconds = $label_seconds ? $label_seconds : esc_html__('Seconds','events-addon-for-elementor');
 
-		// Labels Singular
-		$label_year = !empty( $settings['label_year'] ) ? $settings['label_year'] : '';
-		$label_month = !empty( $settings['label_month'] ) ? $settings['label_month'] : '';
-		$label_week = !empty( $settings['label_week'] ) ? $settings['label_week'] : '';
-		$label_day = !empty( $settings['label_day'] ) ? $settings['label_day'] : '';
-		$label_hour = !empty( $settings['label_hour'] ) ? $settings['label_hour'] : '';
-		$label_minute = !empty( $settings['label_minute'] ) ? $settings['label_minute'] : '';
-		$label_second = !empty( $settings['label_second'] ) ? $settings['label_second'] : '';
+		// Sanitize Labels Singular
+		$label_year = !empty($settings['label_year']) ? $this->sanitize_input($settings['label_year'], 'label') : '';
+		$label_month = !empty($settings['label_month']) ? $this->sanitize_input($settings['label_month'], 'label') : '';
+		$label_week = !empty($settings['label_week']) ? $this->sanitize_input($settings['label_week'], 'label') : '';
+		$label_day = !empty($settings['label_day']) ? $this->sanitize_input($settings['label_day'], 'label') : '';
+		$label_hour = !empty($settings['label_hour']) ? $this->sanitize_input($settings['label_hour'], 'label') : '';
+		$label_minute = !empty($settings['label_minute']) ? $this->sanitize_input($settings['label_minute'], 'label') : '';
+		$label_second = !empty($settings['label_second']) ? $this->sanitize_input($settings['label_second'], 'label') : '';
 
-		$label_year = $label_year ? esc_html($label_year) : esc_html__('Year','events-addon-for-elementor');
-		$label_month = $label_month ? esc_html($label_month) : esc_html__('Month','events-addon-for-elementor');
-		$label_week = $label_week ? esc_html($label_week) : esc_html__('Week','events-addon-for-elementor');
-		$label_day = $label_day ? esc_html($label_day) : esc_html__('Day','events-addon-for-elementor');
-		$label_hour = $label_hour ? esc_html($label_hour) : esc_html__('Hour','events-addon-for-elementor');
-		$label_minute = $label_minute ? esc_html($label_minute) : esc_html__('Minute','events-addon-for-elementor');
-		$label_second = $label_second ? esc_html($label_second) : esc_html__('Second','events-addon-for-elementor');
+		// Set defaults for singular labels
+		$label_year = $label_year ? $label_year : esc_html__('Year','events-addon-for-elementor');
+		$label_month = $label_month ? $label_month : esc_html__('Month','events-addon-for-elementor');
+		$label_week = $label_week ? $label_week : esc_html__('Week','events-addon-for-elementor');
+		$label_day = $label_day ? $label_day : esc_html__('Day','events-addon-for-elementor');
+		$label_hour = $label_hour ? $label_hour : esc_html__('Hour','events-addon-for-elementor');
+		$label_minute = $label_minute ? $label_minute : esc_html__('Minute','events-addon-for-elementor');
+		$label_second = $label_second ? $label_second : esc_html__('Second','events-addon-for-elementor');
 
-		$countdown_format = $countdown_format ? $countdown_format : '';
-
+		// Determine count date
 		if ($count_type === 'fake') {
 			$count_date_actual = $fake_date;
 		} else {
 			$count_date_actual = $count_date_static;
 		}
 
-		if ($need_separator) {
-			$sep_class = ' need-separator';
-		} else {
-			$sep_class = '';
-		}
+		// Determine separator class
+		$sep_class = ($need_separator) ? ' need-separator' : '';
 
-		$output = '';
-		$output .= '<div class="naeep-countdown-wrap'.$sep_class.'">
-				          <div class="naeep-countdown '.esc_attr($count_type).'" data-date="'.esc_attr($count_date_actual).'" data-years="'.esc_attr($label_years).'" data-months="'.esc_attr($label_months).'" data-weeks="'.esc_attr($label_weeks).'" data-days="'.esc_attr($label_days).'" data-hours="'.esc_attr($label_hours).'" data-minutes="'.esc_attr($label_minutes).'" data-seconds="'.esc_attr($label_seconds).'" data-year="'.esc_attr($label_year).'" data-month="'.esc_attr($label_month).'" data-week="'.esc_attr($label_week).'" data-day="'.esc_attr($label_day).'" data-hour="'.esc_attr($label_hour).'" data-minute="'.esc_attr($label_minute).'" data-second="'.esc_attr($label_second).'" data-format="'.esc_attr($countdown_format).'" data-timezone="'.esc_attr($timezone).'"><div class="clearfix"></div>
-				          </div>
-				        </div>';
+		// Use wp_kses to allow only safe HTML attributes
+		$allowed_html = array(
+			'div' => array(
+				'class' => array(),
+				'data-date' => array(),
+				'data-years' => array(),
+				'data-months' => array(),
+				'data-weeks' => array(),
+				'data-days' => array(),
+				'data-hours' => array(),
+				'data-minutes' => array(),
+				'data-seconds' => array(),
+				'data-year' => array(),
+				'data-month' => array(),
+				'data-week' => array(),
+				'data-day' => array(),
+				'data-hour' => array(),
+				'data-minute' => array(),
+				'data-second' => array(),
+				'data-format' => array(),
+				'data-timezone' => array(),
+			),
+		);
 
-		echo $output;
+		$output = '<div class="naeep-countdown-wrap'.esc_attr($sep_class).'">
+		          <div class="naeep-countdown '.esc_attr($count_type).'" data-date="'.esc_attr($count_date_actual).'" data-years="'.esc_attr($label_years).'" data-months="'.esc_attr($label_months).'" data-weeks="'.esc_attr($label_weeks).'" data-days="'.esc_attr($label_days).'" data-hours="'.esc_attr($label_hours).'" data-minutes="'.esc_attr($label_minutes).'" data-seconds="'.esc_attr($label_seconds).'" data-year="'.esc_attr($label_year).'" data-month="'.esc_attr($label_month).'" data-week="'.esc_attr($label_week).'" data-day="'.esc_attr($label_day).'" data-hour="'.esc_attr($label_hour).'" data-minute="'.esc_attr($label_minute).'" data-second="'.esc_attr($label_second).'" data-format="'.esc_attr($countdown_format).'" data-timezone="'.esc_attr($timezone).'"><div class="clearfix"></div>
+		          </div>
+		        </div>';
 
+		echo wp_kses($output, $allowed_html);
 	}
 
 }
