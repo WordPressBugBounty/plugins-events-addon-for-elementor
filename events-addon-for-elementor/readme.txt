@@ -6,7 +6,7 @@ Tags: elementor, addons, events, elementor widget, conference
 Requires PHP: 7.4
 Requires at least: 6.0
 Tested up to: 6.8.2
-Stable tag: 2.21.0
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -156,7 +156,10 @@ No, it'll not work without Elementor Page Builder, it's an addon for Elementor.
 
 == Changelog ==
 
-= 2.21.0
+= 2.3.0
+* Security issue fix
+
+= 2.2.9
 * Security issue fix
 
 = 2.2.8

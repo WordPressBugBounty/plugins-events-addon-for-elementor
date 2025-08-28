@@ -2,6 +2,7 @@
 /*
  * Elementor Events Addon for Elementor Unique Countdown Widget
  * Author & Copyright: NicheAddon
+ * Security Fixed Version
  */
 
 namespace Elementor;
@@ -468,12 +469,30 @@ class Event_Elementor_Addon_Unique_Countdown extends Widget_Base{
 				}
 				return '';
 			case 'label':
-				// Special handling for labels - remove HTML but allow basic text
+				// CRITICAL: Extra strict sanitization for labels to prevent XSS in data attributes
 				$cleaned = sanitize_text_field($value);
-				return strip_tags($cleaned);
+				$cleaned = strip_tags($cleaned);
+				// Remove any characters that could break out of HTML attributes or execute JavaScript
+				$cleaned = preg_replace('/[<>"\'`&=\(\)\[\]{}\\\\\/]/', '', $cleaned);
+				// Remove JavaScript keywords and dangerous patterns
+				$cleaned = preg_replace('/\b(script|javascript|eval|function|alert|prompt|confirm|onload|onerror|onclick)\b/i', '', $cleaned);
+				// Only allow alphanumeric characters, spaces, and basic punctuation
+				$cleaned = preg_replace('/[^a-zA-Z0-9\s\-_.,!?:]/', '', $cleaned);
+				// Limit length to prevent buffer overflow attacks
+				$cleaned = substr($cleaned, 0, 50);
+				return trim($cleaned);
 			default:
 				return sanitize_text_field($value);
 		}
+	}
+
+	/**
+	 * Additional security: JSON encode labels for safe data attribute output
+	 */
+	private function safe_json_encode($value) {
+		// First sanitize, then JSON encode for extra safety
+		$sanitized = $this->sanitize_input($value, 'label');
+		return wp_json_encode($sanitized, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
 	}
 
 	/**
@@ -562,8 +581,27 @@ class Event_Elementor_Addon_Unique_Countdown extends Widget_Base{
 			),
 		);
 
+		// Build output with enhanced security - using JSON encoding for label data attributes
 		$output = '<div class="naeep-countdown-wrap'.esc_attr($sep_class).'">
-		          <div class="naeep-countdown '.esc_attr($count_type).'" data-date="'.esc_attr($count_date_actual).'" data-years="'.esc_attr($label_years).'" data-months="'.esc_attr($label_months).'" data-weeks="'.esc_attr($label_weeks).'" data-days="'.esc_attr($label_days).'" data-hours="'.esc_attr($label_hours).'" data-minutes="'.esc_attr($label_minutes).'" data-seconds="'.esc_attr($label_seconds).'" data-year="'.esc_attr($label_year).'" data-month="'.esc_attr($label_month).'" data-week="'.esc_attr($label_week).'" data-day="'.esc_attr($label_day).'" data-hour="'.esc_attr($label_hour).'" data-minute="'.esc_attr($label_minute).'" data-second="'.esc_attr($label_second).'" data-format="'.esc_attr($countdown_format).'" data-timezone="'.esc_attr($timezone).'"><div class="clearfix"></div>
+		          <div class="naeep-countdown '.esc_attr($count_type).'" 
+		               data-date="'.esc_attr($count_date_actual).'" 
+		               data-years='.esc_attr($this->safe_json_encode($label_years)).' 
+		               data-months='.esc_attr($this->safe_json_encode($label_months)).' 
+		               data-weeks='.esc_attr($this->safe_json_encode($label_weeks)).' 
+		               data-days='.esc_attr($this->safe_json_encode($label_days)).' 
+		               data-hours='.esc_attr($this->safe_json_encode($label_hours)).' 
+		               data-minutes='.esc_attr($this->safe_json_encode($label_minutes)).' 
+		               data-seconds='.esc_attr($this->safe_json_encode($label_seconds)).' 
+		               data-year='.esc_attr($this->safe_json_encode($label_year)).' 
+		               data-month='.esc_attr($this->safe_json_encode($label_month)).' 
+		               data-week='.esc_attr($this->safe_json_encode($label_week)).' 
+		               data-day='.esc_attr($this->safe_json_encode($label_day)).' 
+		               data-hour='.esc_attr($this->safe_json_encode($label_hour)).' 
+		               data-minute='.esc_attr($this->safe_json_encode($label_minute)).' 
+		               data-second='.esc_attr($this->safe_json_encode($label_second)).' 
+		               data-format="'.esc_attr($countdown_format).'" 
+		               data-timezone="'.esc_attr($timezone).'">
+		            <div class="clearfix"></div>
 		          </div>
 		        </div>';
 
